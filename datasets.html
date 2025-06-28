@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Explore Itbanque's curated speech and language datasets for AI training and evaluation." />
+    <meta name="description" content="Explore Itbanque's curated datasets for real-world AI systems." />
     <title>Datasets — Itbanque</title>
     <script src="https://cdn.tailwindcss.com"></script>
   </head>
@@ -23,28 +23,34 @@
 
     <main class="py-32 px-6 md:px-12">
       <div class="max-w-5xl mx-auto text-center">
-        <h2 class="text-4xl md:text-5xl font-bold leading-tight tracking-tight mb-6">Curated Data for Speech & Translation AI</h2>
+        <h2 class="text-4xl md:text-5xl font-bold leading-tight tracking-tight mb-6">Real-World AI Starts With Real Data</h2>
         <p class="text-gray-400 text-lg max-w-2xl mx-auto mb-16">
-          We publish production-quality datasets that support the development of Whisper-class ASR, TTS, and multilingual models.
+          Our proprietary datasets are designed to help you train, fine-tune, and evaluate AI systems in production environments.
         </p>
       </div>
 
-      <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-12">
-        <div>
-          <h3 class="text-lg font-semibold mb-2">ScreenTalk_ZH2ZH</h3>
-          <p class="text-gray-400 text-sm leading-relaxed mb-2">
-            Chinese subtitle-style ASR dataset sourced from broadcast media. Designed to benchmark Chinese-only speech models and enable in-domain fine-tuning.
-          </p>
-          <a href="https://huggingface.co/datasets/Itbanque/ScreenTalk_ZH2ZH" target="_blank" class="text-[#db4a2b] text-sm hover:underline">View on Hugging Face</a>
-        </div>
-        <div>
-          <h3 class="text-lg font-semibold mb-2">ScreenTalk_JA2ZH</h3>
-          <p class="text-gray-400 text-sm leading-relaxed mb-2">
-            Japanese-Chinese parallel subtitle dataset for speech translation training. Enables evaluation and pretraining of cross-lingual ASR systems.
-          </p>
-          <a href="https://huggingface.co/datasets/Itbanque/ScreenTalk_JA2ZH" target="_blank" class="text-[#db4a2b] text-sm hover:underline">View on Hugging Face</a>
-        </div>
-      </div>
+      <div class="max-w-2xl mx-auto space-y-10 text-sm text-gray-300">
+  <div>
+    <p class="mb-1 font-semibold">🎬 Chinese → Chinese</p>
+    <p>Chinese speech-text pairs from film and TV</p>
+    <p class="text-xs text-gray-500">Format: Parquet</p>
+    <a href="mailto:contact@itbanque.com?subject=Dataset Access - Chinese to Chinese" class="text-[#db4a2b] underline text-xs">Request Access</a>
+  </div>
+
+  <div>
+    <p class="mb-1 font-semibold">🎬 English → English</p>
+    <p>English audiovisual content with aligned transcripts</p>
+    <p class="text-xs text-gray-500">Format: Parquet</p>
+    <a href="mailto:contact@itbanque.com?subject=Dataset Access - English to English" class="text-[#db4a2b] underline text-xs">Request Access</a>
+  </div>
+
+  <div>
+    <p class="mb-1 font-semibold">🎬 Japanese → Chinese</p>
+    <p>Japanese audio aligned with Chinese translations</p>
+    <p class="text-xs text-gray-500">Format: Parquet</p>
+    <a href="mailto:contact@itbanque.com?subject=Dataset Access - Japanese to Chinese" class="text-[#db4a2b] underline text-xs">Request Access</a>
+  </div>
+</div>
     </main>
 
     <footer class="bg-black border-t border-white/10 text-gray-500 text-center py-6 text-sm mt-24">
