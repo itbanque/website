@@ -31,23 +31,25 @@
         </p>
 
         <div class="space-y-16 text-left">
-          <!-- Paper 1 -->
-          <div class="border border-white/10 p-6 rounded-lg bg-white/5">
-            <h3 class="text-2xl font-semibold mb-2">Exploring Whisper’s Capability for Non-English Speech Translation via Fine-Tuning</h3>
+          <!-- Paper Block -->
+          <div class="paper border border-white/10 p-6 rounded-lg bg-white/5">
+            <h3 class="text-2xl font-semibold mb-2">
+              Exploring Whisper’s Capability for Non-English Speech Translation via Fine-Tuning
+            </h3>
             <p class="text-sm text-gray-400 mb-1">Author: Jian Feng</p>
             <p class="text-sm text-gray-400 mb-4">Published: July 2025</p>
             <p class="text-gray-300 mb-4">
               This paper explores how fine-tuning the Whisper model improves Japanese-to-Chinese speech translation, using 500+ hours of curated movie and TV subtitles...
             </p>
             <div class="flex flex-wrap items-center gap-4">
-              <a href="/assets/papers/Adapting Whisper for Japanese-to-Chinese Speech Translation on Lightweight Models.pdf" target="_blank" class="px-5 py-2 bg-white text-black font-medium rounded hover:bg-gray-200 transition">
+              <a href="/assets/papers/Adapting Whisper for Japanese-to-Chinese Speech Translation on Lightweight Models.pdf" target="_blank"
+                class="px-5 py-2 bg-white text-black font-medium rounded hover:bg-gray-200 transition">
                 📄 View PDF
               </a>
-              <button onclick="toggleBibtex(this)" class="text-sm underline text-gray-400 hover:text-white">
-                Show BibTeX
-              </button>
+              <button onclick="toggleBibtex(this)"
+                class="text-sm underline text-gray-400 hover:text-white">Show BibTeX</button>
             </div>
-            <pre class="mt-4 hidden text-xs text-gray-400 bg-black/30 p-4 rounded overflow-x-auto">
+            <pre class="bibtex hidden mt-4 text-xs text-gray-400 bg-black/30 p-4 rounded overflow-x-auto">
 @misc{feng2025whisper,
   title={Exploring Whisper’s Capability for Non-English Speech Translation via Fine-Tuning},
   author={Jian Feng},
@@ -56,8 +58,6 @@
 }
             </pre>
           </div>
-
-          <!-- 更多论文可以复制上面的结构继续添加 -->
         </div>
       </div>
     </section>
@@ -68,14 +68,11 @@
 
     <script>
       function toggleBibtex(btn) {
-        const pre = btn.nextElementSibling;
-        if (pre.classList.contains('hidden')) {
-          pre.classList.remove('hidden');
-          btn.textContent = 'Hide BibTeX';
-        } else {
-          pre.classList.add('hidden');
-          btn.textContent = 'Show BibTeX';
-        }
+        const container = btn.closest('.paper');
+        const pre = container.querySelector('.bibtex');
+        if (!pre) return;
+        pre.classList.toggle('hidden');
+        btn.textContent = pre.classList.contains('hidden') ? 'Show BibTeX' : 'Hide BibTeX';
       }
     </script>
   </body>
