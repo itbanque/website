@@ -11,9 +11,17 @@
   <body class="bg-black text-white font-sans">
     <!-- Header -->
     <header class="sticky top-0 z-50 backdrop-blur-sm bg-black/70 border-b border-white/10">
-      <div class="max-w-7xl mx-auto flex justify-between items-center px-6 py-5">
+      <div class="max-w-7xl mx-auto flex items-center justify-between px-6 py-5">
+        <!-- Logo -->
         <a href="index.html" class="text-3xl font-bold tracking-wide text-white">Itbanque</a>
-        <nav class="space-x-6 text-sm text-gray-300">
+
+        <!-- Mobile Hamburger -->
+        <button id="menu-button" class="sm:hidden text-white text-2xl focus:outline-none" onclick="document.getElementById('mobile-menu').classList.toggle('hidden')">
+          ☰
+        </button>
+
+        <!-- Desktop Nav -->
+        <nav class="hidden sm:flex space-x-6 text-sm text-gray-300">
           <a href="index.html" class="hover:text-white">Home</a>
           <a href="services.html" class="hover:text-white">Services</a>
           <a href="success.html" class="text-white font-semibold underline">Success</a>
@@ -21,6 +29,16 @@
           <a href="about.html" class="hover:text-white">About</a>
           <a href="contact.html" class="hover:text-white">Contact</a>
         </nav>
+      </div>
+
+      <!-- Mobile Nav (Vertical) -->
+      <div id="mobile-menu" class="sm:hidden hidden flex flex-col space-y-3 px-6 pb-6 pt-2 bg-black text-sm text-gray-300 border-t border-white/10">
+        <a href="index.html" class="hover:text-white">Home</a>
+        <a href="services.html" class="hover:text-white">Services</a>
+        <a href="success.html" class="text-white font-semibold underline">Success</a>
+        <a href="research.html" class="hover:text-white">Research</a>
+        <a href="about.html" class="hover:text-white">About</a>
+        <a href="contact.html" class="hover:text-white">Contact</a>
       </div>
     </header>
 
