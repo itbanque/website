@@ -1,0 +1,216 @@
+{
+  "lastUpdated": "2026-03-13",
+  "source": {
+    "label": "OpenAI - Introducing GPT-5.4",
+    "url": "https://openai.com/index/introducing-gpt-5-4/",
+    "published": "2026-03-05"
+  },
+  "benchmarkMetrics": [
+    { "key": "gdpval", "label": "GDPval", "category": "Professional", "format": "percent", "higherIsBetter": true, "min": 0, "max": 100 },
+    { "key": "financeagent_v1_1", "label": "FinanceAgent v1.1", "category": "Professional", "format": "percent", "higherIsBetter": true, "min": 0, "max": 100 },
+    { "key": "ib_modeling_internal", "label": "Investment Banking Modeling Tasks (Internal)", "category": "Professional", "format": "percent", "higherIsBetter": true, "min": 0, "max": 100 },
+    { "key": "officeqa", "label": "OfficeQA", "category": "Professional", "format": "percent", "higherIsBetter": true, "min": 0, "max": 100 },
+
+    { "key": "swebench_pro_public", "label": "SWE-Bench Pro (Public)", "category": "Coding", "format": "percent", "higherIsBetter": true, "min": 0, "max": 100 },
+    { "key": "terminal_bench_2", "label": "Terminal-Bench 2.0", "category": "Coding", "format": "percent", "higherIsBetter": true, "min": 0, "max": 100 },
+
+    { "key": "osworld_verified", "label": "OSWorld-Verified", "category": "Computer use and vision", "format": "percent", "higherIsBetter": true, "min": 0, "max": 100 },
+    { "key": "mmmu_pro_no_tools", "label": "MMMU Pro (no tools)", "category": "Computer use and vision", "format": "percent", "higherIsBetter": true, "min": 0, "max": 100 },
+    { "key": "mmmu_pro_with_tools", "label": "MMMU Pro (with tools)", "category": "Computer use and vision", "format": "percent", "higherIsBetter": true, "min": 0, "max": 100 },
+
+    { "key": "browsecomp", "label": "BrowseComp", "category": "Tool use", "format": "percent", "higherIsBetter": true, "min": 0, "max": 100 },
+    { "key": "mcp_atlas", "label": "MCP Atlas", "category": "Tool use", "format": "percent", "higherIsBetter": true, "min": 0, "max": 100 },
+    { "key": "toolathlon", "label": "Toolathlon", "category": "Tool use", "format": "percent", "higherIsBetter": true, "min": 0, "max": 100 },
+    { "key": "tau2_telecom_tool", "label": "Tau2-bench Telecom", "category": "Tool use", "format": "percent", "higherIsBetter": true, "min": 0, "max": 100 },
+
+    { "key": "frontier_science_research", "label": "Frontier Science Research", "category": "Academic", "format": "percent", "higherIsBetter": true, "min": 0, "max": 100 },
+    { "key": "frontiermath_tier_1_3", "label": "FrontierMath Tier 1-3", "category": "Academic", "format": "percent", "higherIsBetter": true, "min": 0, "max": 100 },
+    { "key": "frontiermath_tier_4", "label": "FrontierMath Tier 4", "category": "Academic", "format": "percent", "higherIsBetter": true, "min": 0, "max": 100 },
+    { "key": "gpqa_diamond", "label": "GPQA Diamond", "category": "Academic", "format": "percent", "higherIsBetter": true, "min": 0, "max": 100 },
+    { "key": "hles_no_tools", "label": "Humanity's Last Exam (no tools)", "category": "Academic", "format": "percent", "higherIsBetter": true, "min": 0, "max": 100 },
+    { "key": "hles_with_tools", "label": "Humanity's Last Exam (with tools)", "category": "Academic", "format": "percent", "higherIsBetter": true, "min": 0, "max": 100 },
+
+    { "key": "graphwalks_bfs_0_128k", "label": "Graphwalks BFS 0K-128K", "category": "Long context", "format": "percent", "higherIsBetter": true, "min": 0, "max": 100 },
+    { "key": "graphwalks_bfs_256k_1m", "label": "Graphwalks BFS 256K-1M", "category": "Long context", "format": "percent", "higherIsBetter": true, "min": 0, "max": 100 },
+    { "key": "graphwalks_parents_0_128k", "label": "Graphwalks parents 0-128K (accuracy)", "category": "Long context", "format": "percent", "higherIsBetter": true, "min": 0, "max": 100 },
+    { "key": "graphwalks_parents_256k_1m", "label": "Graphwalks parents 256K-1M (accuracy)", "category": "Long context", "format": "percent", "higherIsBetter": true, "min": 0, "max": 100 },
+    { "key": "mrcr_4k_8k", "label": "OpenAI MRCR v2 8-needle 4K-8K", "category": "Long context", "format": "percent", "higherIsBetter": true, "min": 0, "max": 100 },
+    { "key": "mrcr_8k_16k", "label": "OpenAI MRCR v2 8-needle 8K-16K", "category": "Long context", "format": "percent", "higherIsBetter": true, "min": 0, "max": 100 },
+    { "key": "mrcr_16k_32k", "label": "OpenAI MRCR v2 8-needle 16K-32K", "category": "Long context", "format": "percent", "higherIsBetter": true, "min": 0, "max": 100 },
+    { "key": "mrcr_32k_64k", "label": "OpenAI MRCR v2 8-needle 32K-64K", "category": "Long context", "format": "percent", "higherIsBetter": true, "min": 0, "max": 100 },
+    { "key": "mrcr_64k_128k", "label": "OpenAI MRCR v2 8-needle 64K-128K", "category": "Long context", "format": "percent", "higherIsBetter": true, "min": 0, "max": 100 },
+    { "key": "mrcr_128k_256k", "label": "OpenAI MRCR v2 8-needle 128K-256K", "category": "Long context", "format": "percent", "higherIsBetter": true, "min": 0, "max": 100 },
+    { "key": "mrcr_256k_512k", "label": "OpenAI MRCR v2 8-needle 256K-512K", "category": "Long context", "format": "percent", "higherIsBetter": true, "min": 0, "max": 100 },
+    { "key": "mrcr_512k_1m", "label": "OpenAI MRCR v2 8-needle 512K-1M", "category": "Long context", "format": "percent", "higherIsBetter": true, "min": 0, "max": 100 },
+
+    { "key": "arc_agi_1_verified", "label": "ARC-AGI-1 (Verified)", "category": "Abstract reasoning", "format": "percent", "higherIsBetter": true, "min": 0, "max": 100 },
+    { "key": "arc_agi_2_verified", "label": "ARC-AGI-2 (Verified)", "category": "Abstract reasoning", "format": "percent", "higherIsBetter": true, "min": 0, "max": 100 },
+
+    { "key": "omnidocbench_edit_distance", "label": "OmniDocBench (normalized edit distance)", "category": "Evals without reasoning", "format": "decimal", "higherIsBetter": false, "min": 0, "max": 1 },
+    { "key": "tau2_telecom_no_reasoning", "label": "Tau2-bench Telecom", "category": "Evals without reasoning", "format": "percent", "higherIsBetter": true, "min": 0, "max": 100 }
+  ],
+  "modelBenchmarks": [
+    {
+      "id": "gpt-5-4",
+      "name": "GPT-5.4",
+      "provider": "OpenAI",
+      "color": "#65dbb8",
+      "scores": {
+        "gdpval": 83.0,
+        "financeagent_v1_1": 56.0,
+        "ib_modeling_internal": 87.3,
+        "officeqa": 68.1,
+        "swebench_pro_public": 57.7,
+        "terminal_bench_2": 75.1,
+        "osworld_verified": 75.0,
+        "mmmu_pro_no_tools": 81.2,
+        "mmmu_pro_with_tools": 82.1,
+        "browsecomp": 82.7,
+        "mcp_atlas": 67.2,
+        "toolathlon": 54.6,
+        "tau2_telecom_tool": 98.9,
+        "frontier_science_research": 33.0,
+        "frontiermath_tier_1_3": 47.6,
+        "frontiermath_tier_4": 27.1,
+        "gpqa_diamond": 92.8,
+        "hles_no_tools": 39.8,
+        "hles_with_tools": 52.1,
+        "graphwalks_bfs_0_128k": 93.0,
+        "graphwalks_bfs_256k_1m": 21.4,
+        "graphwalks_parents_0_128k": 89.8,
+        "graphwalks_parents_256k_1m": 32.4,
+        "mrcr_4k_8k": 97.3,
+        "mrcr_8k_16k": 91.4,
+        "mrcr_16k_32k": 97.2,
+        "mrcr_32k_64k": 90.5,
+        "mrcr_64k_128k": 86.0,
+        "mrcr_128k_256k": 79.3,
+        "mrcr_256k_512k": 57.5,
+        "mrcr_512k_1m": 36.6,
+        "arc_agi_1_verified": 93.7,
+        "arc_agi_2_verified": 73.3
+      }
+    },
+    {
+      "id": "gpt-5-4-pro",
+      "name": "GPT-5.4 Pro",
+      "provider": "OpenAI",
+      "color": "#67b5ff",
+      "scores": {
+        "gdpval": 82.0,
+        "financeagent_v1_1": 61.5,
+        "ib_modeling_internal": 83.6,
+        "browsecomp": 89.3,
+        "frontier_science_research": 36.7,
+        "frontiermath_tier_1_3": 50.0,
+        "frontiermath_tier_4": 38.0,
+        "gpqa_diamond": 94.4,
+        "hles_no_tools": 42.7,
+        "hles_with_tools": 58.7,
+        "arc_agi_1_verified": 94.5,
+        "arc_agi_2_verified": 83.3
+      }
+    },
+    {
+      "id": "gpt-5-3-codex",
+      "name": "GPT-5.3-Codex",
+      "provider": "OpenAI",
+      "color": "#ffbe69",
+      "scores": {
+        "gdpval": 70.9,
+        "financeagent_v1_1": 54.0,
+        "ib_modeling_internal": 79.3,
+        "officeqa": 65.1,
+        "swebench_pro_public": 56.8,
+        "terminal_bench_2": 77.3,
+        "osworld_verified": 74.0,
+        "browsecomp": 77.3,
+        "toolathlon": 51.9,
+        "gpqa_diamond": 92.6
+      }
+    },
+    {
+      "id": "gpt-5-2",
+      "name": "GPT-5.2",
+      "provider": "OpenAI",
+      "color": "#f48498",
+      "scores": {
+        "gdpval": 70.9,
+        "financeagent_v1_1": 59.5,
+        "ib_modeling_internal": 68.4,
+        "officeqa": 63.1,
+        "swebench_pro_public": 55.6,
+        "terminal_bench_2": 62.2,
+        "osworld_verified": 47.3,
+        "mmmu_pro_no_tools": 79.5,
+        "mmmu_pro_with_tools": 80.4,
+        "browsecomp": 65.8,
+        "mcp_atlas": 60.6,
+        "toolathlon": 45.7,
+        "tau2_telecom_tool": 98.7,
+        "frontier_science_research": 25.2,
+        "frontiermath_tier_1_3": 40.7,
+        "frontiermath_tier_4": 18.8,
+        "gpqa_diamond": 92.4,
+        "hles_no_tools": 34.5,
+        "hles_with_tools": 45.5,
+        "graphwalks_bfs_0_128k": 94.0,
+        "graphwalks_parents_0_128k": 89.0,
+        "mrcr_4k_8k": 98.2,
+        "mrcr_8k_16k": 89.3,
+        "mrcr_16k_32k": 95.3,
+        "mrcr_32k_64k": 92.0,
+        "mrcr_64k_128k": 85.6,
+        "mrcr_128k_256k": 77.0,
+        "arc_agi_1_verified": 86.2,
+        "arc_agi_2_verified": 52.9
+      }
+    },
+    {
+      "id": "gpt-5-2-pro",
+      "name": "GPT-5.2 Pro",
+      "provider": "OpenAI",
+      "color": "#b99cff",
+      "scores": {
+        "gdpval": 74.1,
+        "ib_modeling_internal": 71.7,
+        "browsecomp": 77.9,
+        "frontiermath_tier_4": 31.3,
+        "gpqa_diamond": 93.2,
+        "hles_no_tools": 36.6,
+        "hles_with_tools": 50.0,
+        "arc_agi_1_verified": 90.5,
+        "arc_agi_2_verified": 54.2
+      }
+    },
+    {
+      "id": "gpt-5-4-none",
+      "name": "GPT-5.4 (none)",
+      "provider": "OpenAI",
+      "color": "#6dd3ce",
+      "scores": {
+        "omnidocbench_edit_distance": 0.109,
+        "tau2_telecom_no_reasoning": 64.3
+      }
+    },
+    {
+      "id": "gpt-5-2-none",
+      "name": "GPT-5.2 (none)",
+      "provider": "OpenAI",
+      "color": "#f7a278",
+      "scores": {
+        "omnidocbench_edit_distance": 0.14,
+        "tau2_telecom_no_reasoning": 57.2
+      }
+    },
+    {
+      "id": "gpt-4-1",
+      "name": "GPT-4.1",
+      "provider": "OpenAI",
+      "color": "#9fa8da",
+      "scores": {
+        "tau2_telecom_no_reasoning": 43.6
+      }
+    }
+  ]
+}

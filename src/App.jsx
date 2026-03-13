@@ -4,6 +4,7 @@ import HomePage from './pages/HomePage';
 import ServicesPage from './pages/ServicesPage';
 import SuccessPage from './pages/SuccessPage';
 import ResearchPage from './pages/ResearchPage';
+import ModelsPage from './pages/ModelsPage';
 import AboutPage from './pages/AboutPage';
 import ContactPage from './pages/ContactPage';
 import PrivacyPage from './pages/PrivacyPage';
@@ -16,6 +17,7 @@ export default function App() {
         <Route path="/services" element={<ServicesPage />} />
         <Route path="/success" element={<SuccessPage />} />
         <Route path="/research" element={<ResearchPage />} />
+        <Route path="/models" element={<ModelsPage />} />
         <Route path="/about" element={<AboutPage />} />
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/privacy" element={<PrivacyPage />} />

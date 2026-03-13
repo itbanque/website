@@ -1,3 +1,5 @@
+import benchmarkData from './modelBenchmarks.json';
+
 export const navItems = [
   { label: 'Home', to: '/' },
   { label: 'Services', to: '/services' },
@@ -88,3 +90,6 @@ export const researchPapers = [
     bibtex: `@misc{feng2025whisper,\n  title={Adapting Whisper for Japanese-to-Chinese Speech Translation on Lightweight Models},\n  author={Jian Feng},\n  year={2025},\n  url={https://www.itbanque.com/assets/papers/Adapting Whisper for Japanese-to-Chinese Speech Translation on Lightweight Models.pdf}\n}`
   }
 ];
+
+export const benchmarkMetrics = benchmarkData.benchmarkMetrics;
+export const modelBenchmarks = benchmarkData.modelBenchmarks;

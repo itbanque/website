@@ -382,6 +382,149 @@ h3 {
   flex-wrap: wrap;
 }
 
+.model-comparison {
+  margin-bottom: 1rem;
+}
+
+.model-picker-grid {
+  display: grid;
+  gap: 0.7rem;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+}
+
+.model-option {
+  border: 1px solid #7daec52e;
+  border-radius: 12px;
+  background: #0f2332;
+  padding: 0.75rem;
+  display: grid;
+  gap: 0.2rem;
+  cursor: pointer;
+}
+
+.model-option.selected {
+  border-color: #67b5ff;
+  background: #102d41;
+}
+
+.model-option input {
+  margin-bottom: 0.35rem;
+}
+
+.model-option span {
+  font-weight: 600;
+}
+
+.model-option small {
+  color: var(--muted);
+}
+
+.picker-help {
+  margin: 0.85rem 0 0;
+  color: #a9c9dc;
+  font-size: 0.92rem;
+}
+
+.metric-filter {
+  margin-top: 1rem;
+  display: flex;
+  gap: 0.45rem;
+  flex-wrap: wrap;
+}
+
+.metric-chip {
+  border: 1px solid #7aa0b640;
+  border-radius: 999px;
+  background: #0c1d2a;
+  color: var(--muted);
+  padding: 0.35rem 0.8rem;
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.9rem;
+}
+
+.metric-chip.active {
+  border-color: #65dbb8;
+  color: var(--text);
+  background: #10353b;
+}
+
+.comparison-legend {
+  margin-top: 1rem;
+  display: flex;
+  gap: 0.8rem;
+  flex-wrap: wrap;
+}
+
+.legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: #bfd9ea;
+  font-size: 0.9rem;
+}
+
+.legend-dot {
+  width: 11px;
+  height: 11px;
+  border-radius: 999px;
+}
+
+.benchmark-chart {
+  margin-top: 1.1rem;
+  display: grid;
+  gap: 0.9rem;
+}
+
+.chart-row {
+  border: 1px solid #7aa0b629;
+  border-radius: 12px;
+  padding: 0.8rem;
+  background: #0a1a26;
+}
+
+.chart-row p {
+  margin: 0 0 0.55rem;
+  font-weight: 600;
+}
+
+.chart-bars {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.bar-item {
+  display: grid;
+  gap: 0.5rem;
+  grid-template-columns: minmax(120px, 180px) minmax(0, 1fr) 44px;
+  align-items: center;
+}
+
+.bar-label {
+  color: #c6dded;
+  font-size: 0.9rem;
+}
+
+.bar-track {
+  width: 100%;
+  height: 12px;
+  border-radius: 999px;
+  background: #163042;
+  overflow: hidden;
+}
+
+.bar-fill {
+  height: 100%;
+  border-radius: 999px;
+  transition: width 320ms ease;
+}
+
+.bar-value {
+  color: #d6eefc;
+  font-size: 0.9rem;
+  text-align: right;
+}
+
 pre {
   overflow-x: auto;
   padding: 0.85rem;
@@ -483,6 +626,15 @@ pre {
     width: 36px;
     height: 36px;
     font-size: 1.1rem;
+  }
+
+  .bar-item {
+    grid-template-columns: 1fr;
+    gap: 0.35rem;
+  }
+
+  .bar-value {
+    text-align: left;
   }
 }
 
