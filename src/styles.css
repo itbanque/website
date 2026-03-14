@@ -386,6 +386,129 @@ h3 {
   margin-bottom: 1rem;
 }
 
+.top-selection-widget {
+  display: grid;
+  gap: 0.6rem;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  margin-bottom: 0.9rem;
+}
+
+.comparison-layout {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: minmax(260px, 320px) minmax(0, 1fr);
+}
+
+.selector-panel,
+.viewer-panel {
+  border: 1px solid #7daec529;
+  border-radius: 14px;
+  background: #0b1f2e;
+  padding: 0.9rem;
+}
+
+.viewer-panel {
+  margin-top: 0.2rem;
+}
+
+.selector-panel {
+  position: sticky;
+  top: 92px;
+  height: fit-content;
+}
+
+.control-row {
+  display: grid;
+  gap: 0.55rem;
+}
+
+.control-input,
+.control-select {
+  width: 100%;
+  border: 1px solid #7aa0b640;
+  border-radius: 10px;
+  background: #081a27;
+  color: var(--text);
+  font: inherit;
+  padding: 0.5rem 0.65rem;
+}
+
+.control-select.slim {
+  width: auto;
+  margin-left: 0.5rem;
+}
+
+.model-dropdown {
+  position: relative;
+}
+
+.dropdown-toggle {
+  width: 100%;
+  border: 1px solid #7aa0b640;
+  border-radius: 10px;
+  background: #081a27;
+  color: var(--text);
+  font: inherit;
+  padding: 0.5rem 0.65rem;
+  text-align: left;
+  cursor: pointer;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: calc(100% + 0.35rem);
+  left: 0;
+  width: 100%;
+  max-height: 280px;
+  overflow: auto;
+  border: 1px solid #7aa0b64d;
+  border-radius: 12px;
+  background: #0b1f2e;
+  z-index: 15;
+  padding: 0.4rem;
+  display: grid;
+  gap: 0.25rem;
+}
+
+.dropdown-item {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.3rem 0.4rem;
+  border-radius: 8px;
+}
+
+.dropdown-item:hover {
+  background: #102c3f;
+}
+
+.dropdown-item span {
+  color: #d6ecfa;
+  font-size: 0.9rem;
+}
+
+.dropdown-item small {
+  color: #97bbd1;
+  font-size: 0.78rem;
+}
+
+.quick-actions {
+  display: flex;
+  gap: 0.45rem;
+  flex-wrap: wrap;
+  margin-top: 0.75rem;
+}
+
+.model-library {
+  margin-top: 0.75rem;
+  display: grid;
+  gap: 0.5rem;
+  max-height: 560px;
+  overflow: auto;
+  padding-right: 0.2rem;
+}
+
 .model-picker-grid {
   display: grid;
   gap: 0.7rem;
@@ -400,6 +523,10 @@ h3 {
   display: grid;
   gap: 0.2rem;
   cursor: pointer;
+}
+
+.model-option.compact {
+  padding: 0.6rem 0.7rem;
 }
 
 .model-option.selected {
@@ -423,6 +550,50 @@ h3 {
   margin: 0.85rem 0 0;
   color: #a9c9dc;
   font-size: 0.92rem;
+}
+
+.viewer-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.8rem;
+  flex-wrap: wrap;
+}
+
+.picker-help {
+  margin: 0;
+}
+
+.limit-label {
+  display: inline-flex;
+  align-items: center;
+  color: #c8dfef;
+  font-size: 0.9rem;
+}
+
+.selected-pills {
+  margin-top: 0.8rem;
+  display: flex;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+}
+
+.selected-pill {
+  border: 1px solid #7aa0b640;
+  background: #10283a;
+  color: #d3e7f5;
+  border-radius: 999px;
+  padding: 0.25rem 0.65rem;
+  font: inherit;
+  font-size: 0.85rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  cursor: pointer;
+}
+
+.pill-remove {
+  color: #9ec4da;
 }
 
 .metric-filter {
@@ -488,6 +659,13 @@ h3 {
   font-weight: 600;
 }
 
+.metric-description {
+  margin: -0.2rem 0 0.65rem !important;
+  color: #9ec0d4;
+  font-size: 0.84rem;
+  font-weight: 400 !important;
+}
+
 .chart-bars {
   display: grid;
   gap: 0.45rem;
@@ -517,6 +695,11 @@ h3 {
   height: 100%;
   border-radius: 999px;
   transition: width 320ms ease;
+}
+
+.bar-fill.no-score {
+  width: 4% !important;
+  opacity: 0.25;
 }
 
 .bar-value {
@@ -585,6 +768,22 @@ pre {
   .split-grid {
     grid-template-columns: 1fr;
   }
+
+  .top-selection-widget {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .comparison-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .selector-panel {
+    position: static;
+  }
+
+  .model-library {
+    max-height: 300px;
+  }
 }
 
 @media (max-width: 760px) {
@@ -626,6 +825,10 @@ pre {
     width: 36px;
     height: 36px;
     font-size: 1.1rem;
+  }
+
+  .top-selection-widget {
+    grid-template-columns: 1fr;
   }
 
   .bar-item {

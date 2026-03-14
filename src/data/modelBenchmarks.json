@@ -1,53 +1,616 @@
 {
   "lastUpdated": "2026-03-13",
-  "source": {
-    "label": "OpenAI - Introducing GPT-5.4",
-    "url": "https://openai.com/index/introducing-gpt-5-4/",
-    "published": "2026-03-05"
-  },
   "benchmarkMetrics": [
-    { "key": "gdpval", "label": "GDPval", "category": "Professional", "format": "percent", "higherIsBetter": true, "min": 0, "max": 100 },
-    { "key": "financeagent_v1_1", "label": "FinanceAgent v1.1", "category": "Professional", "format": "percent", "higherIsBetter": true, "min": 0, "max": 100 },
-    { "key": "ib_modeling_internal", "label": "Investment Banking Modeling Tasks (Internal)", "category": "Professional", "format": "percent", "higherIsBetter": true, "min": 0, "max": 100 },
-    { "key": "officeqa", "label": "OfficeQA", "category": "Professional", "format": "percent", "higherIsBetter": true, "min": 0, "max": 100 },
-
-    { "key": "swebench_pro_public", "label": "SWE-Bench Pro (Public)", "category": "Coding", "format": "percent", "higherIsBetter": true, "min": 0, "max": 100 },
-    { "key": "terminal_bench_2", "label": "Terminal-Bench 2.0", "category": "Coding", "format": "percent", "higherIsBetter": true, "min": 0, "max": 100 },
-
-    { "key": "osworld_verified", "label": "OSWorld-Verified", "category": "Computer use and vision", "format": "percent", "higherIsBetter": true, "min": 0, "max": 100 },
-    { "key": "mmmu_pro_no_tools", "label": "MMMU Pro (no tools)", "category": "Computer use and vision", "format": "percent", "higherIsBetter": true, "min": 0, "max": 100 },
-    { "key": "mmmu_pro_with_tools", "label": "MMMU Pro (with tools)", "category": "Computer use and vision", "format": "percent", "higherIsBetter": true, "min": 0, "max": 100 },
-
-    { "key": "browsecomp", "label": "BrowseComp", "category": "Tool use", "format": "percent", "higherIsBetter": true, "min": 0, "max": 100 },
-    { "key": "mcp_atlas", "label": "MCP Atlas", "category": "Tool use", "format": "percent", "higherIsBetter": true, "min": 0, "max": 100 },
-    { "key": "toolathlon", "label": "Toolathlon", "category": "Tool use", "format": "percent", "higherIsBetter": true, "min": 0, "max": 100 },
-    { "key": "tau2_telecom_tool", "label": "Tau2-bench Telecom", "category": "Tool use", "format": "percent", "higherIsBetter": true, "min": 0, "max": 100 },
-
-    { "key": "frontier_science_research", "label": "Frontier Science Research", "category": "Academic", "format": "percent", "higherIsBetter": true, "min": 0, "max": 100 },
-    { "key": "frontiermath_tier_1_3", "label": "FrontierMath Tier 1-3", "category": "Academic", "format": "percent", "higherIsBetter": true, "min": 0, "max": 100 },
-    { "key": "frontiermath_tier_4", "label": "FrontierMath Tier 4", "category": "Academic", "format": "percent", "higherIsBetter": true, "min": 0, "max": 100 },
-    { "key": "gpqa_diamond", "label": "GPQA Diamond", "category": "Academic", "format": "percent", "higherIsBetter": true, "min": 0, "max": 100 },
-    { "key": "hles_no_tools", "label": "Humanity's Last Exam (no tools)", "category": "Academic", "format": "percent", "higherIsBetter": true, "min": 0, "max": 100 },
-    { "key": "hles_with_tools", "label": "Humanity's Last Exam (with tools)", "category": "Academic", "format": "percent", "higherIsBetter": true, "min": 0, "max": 100 },
-
-    { "key": "graphwalks_bfs_0_128k", "label": "Graphwalks BFS 0K-128K", "category": "Long context", "format": "percent", "higherIsBetter": true, "min": 0, "max": 100 },
-    { "key": "graphwalks_bfs_256k_1m", "label": "Graphwalks BFS 256K-1M", "category": "Long context", "format": "percent", "higherIsBetter": true, "min": 0, "max": 100 },
-    { "key": "graphwalks_parents_0_128k", "label": "Graphwalks parents 0-128K (accuracy)", "category": "Long context", "format": "percent", "higherIsBetter": true, "min": 0, "max": 100 },
-    { "key": "graphwalks_parents_256k_1m", "label": "Graphwalks parents 256K-1M (accuracy)", "category": "Long context", "format": "percent", "higherIsBetter": true, "min": 0, "max": 100 },
-    { "key": "mrcr_4k_8k", "label": "OpenAI MRCR v2 8-needle 4K-8K", "category": "Long context", "format": "percent", "higherIsBetter": true, "min": 0, "max": 100 },
-    { "key": "mrcr_8k_16k", "label": "OpenAI MRCR v2 8-needle 8K-16K", "category": "Long context", "format": "percent", "higherIsBetter": true, "min": 0, "max": 100 },
-    { "key": "mrcr_16k_32k", "label": "OpenAI MRCR v2 8-needle 16K-32K", "category": "Long context", "format": "percent", "higherIsBetter": true, "min": 0, "max": 100 },
-    { "key": "mrcr_32k_64k", "label": "OpenAI MRCR v2 8-needle 32K-64K", "category": "Long context", "format": "percent", "higherIsBetter": true, "min": 0, "max": 100 },
-    { "key": "mrcr_64k_128k", "label": "OpenAI MRCR v2 8-needle 64K-128K", "category": "Long context", "format": "percent", "higherIsBetter": true, "min": 0, "max": 100 },
-    { "key": "mrcr_128k_256k", "label": "OpenAI MRCR v2 8-needle 128K-256K", "category": "Long context", "format": "percent", "higherIsBetter": true, "min": 0, "max": 100 },
-    { "key": "mrcr_256k_512k", "label": "OpenAI MRCR v2 8-needle 256K-512K", "category": "Long context", "format": "percent", "higherIsBetter": true, "min": 0, "max": 100 },
-    { "key": "mrcr_512k_1m", "label": "OpenAI MRCR v2 8-needle 512K-1M", "category": "Long context", "format": "percent", "higherIsBetter": true, "min": 0, "max": 100 },
-
-    { "key": "arc_agi_1_verified", "label": "ARC-AGI-1 (Verified)", "category": "Abstract reasoning", "format": "percent", "higherIsBetter": true, "min": 0, "max": 100 },
-    { "key": "arc_agi_2_verified", "label": "ARC-AGI-2 (Verified)", "category": "Abstract reasoning", "format": "percent", "higherIsBetter": true, "min": 0, "max": 100 },
-
-    { "key": "omnidocbench_edit_distance", "label": "OmniDocBench (normalized edit distance)", "category": "Evals without reasoning", "format": "decimal", "higherIsBetter": false, "min": 0, "max": 1 },
-    { "key": "tau2_telecom_no_reasoning", "label": "Tau2-bench Telecom", "category": "Evals without reasoning", "format": "percent", "higherIsBetter": true, "min": 0, "max": 100 }
+    {
+      "key": "gdpval",
+      "label": "GDPval",
+      "category": "Professional",
+      "format": "percent",
+      "higherIsBetter": true,
+      "min": 0,
+      "max": 100,
+      "description": "General decision-making and task quality benchmark; higher score indicates stronger overall capability."
+    },
+    {
+      "key": "financeagent_v1_1",
+      "label": "FinanceAgent v1.1",
+      "category": "Professional",
+      "format": "percent",
+      "higherIsBetter": true,
+      "min": 0,
+      "max": 100,
+      "description": "Financial agent workflow benchmark measuring analysis and action quality in finance tasks."
+    },
+    {
+      "key": "ib_modeling_internal",
+      "label": "Investment Banking Modeling Tasks (Internal)",
+      "category": "Professional",
+      "format": "percent",
+      "higherIsBetter": true,
+      "min": 0,
+      "max": 100,
+      "description": "Investment banking modeling task set assessing spreadsheet-style finance reasoning and execution."
+    },
+    {
+      "key": "officeqa",
+      "label": "OfficeQA",
+      "category": "Professional",
+      "format": "percent",
+      "higherIsBetter": true,
+      "min": 0,
+      "max": 100,
+      "description": "Office productivity question-answering benchmark across business and document-centric tasks."
+    },
+    {
+      "key": "swebench_pro_public",
+      "label": "SWE-Bench Pro (Public)",
+      "category": "Coding",
+      "format": "percent",
+      "higherIsBetter": true,
+      "min": 0,
+      "max": 100,
+      "description": "Software engineering benchmark on real code tasks from public repositories."
+    },
+    {
+      "key": "terminal_bench_2",
+      "label": "Terminal-Bench 2.0",
+      "category": "Coding",
+      "format": "percent",
+      "higherIsBetter": true,
+      "min": 0,
+      "max": 100,
+      "description": "Agentic coding benchmark in terminal environments using command-line workflows."
+    },
+    {
+      "key": "osworld_verified",
+      "label": "OSWorld-Verified",
+      "category": "Computer use and vision",
+      "format": "percent",
+      "higherIsBetter": true,
+      "min": 0,
+      "max": 100,
+      "description": "Computer-use benchmark measuring desktop task completion in verified scenarios."
+    },
+    {
+      "key": "mmmu_pro_no_tools",
+      "label": "MMMU Pro (no tools)",
+      "category": "Computer use and vision",
+      "format": "percent",
+      "higherIsBetter": true,
+      "min": 0,
+      "max": 100,
+      "description": "Multimodal understanding benchmark (no tools) across image/text reasoning tasks."
+    },
+    {
+      "key": "mmmu_pro_with_tools",
+      "label": "MMMU Pro (with tools)",
+      "category": "Computer use and vision",
+      "format": "percent",
+      "higherIsBetter": true,
+      "min": 0,
+      "max": 100,
+      "description": "Multimodal understanding benchmark with tool assistance enabled."
+    },
+    {
+      "key": "browsecomp",
+      "label": "BrowseComp",
+      "category": "Tool use",
+      "format": "percent",
+      "higherIsBetter": true,
+      "min": 0,
+      "max": 100,
+      "description": "Agentic web browsing benchmark evaluating search, navigation, and answer quality."
+    },
+    {
+      "key": "mcp_atlas",
+      "label": "MCP Atlas",
+      "category": "Tool use",
+      "format": "percent",
+      "higherIsBetter": true,
+      "min": 0,
+      "max": 100,
+      "description": "Multi-step tool-use benchmark using MCP-style workflows and orchestrated actions."
+    },
+    {
+      "key": "toolathlon",
+      "label": "Toolathlon",
+      "category": "Tool use",
+      "format": "percent",
+      "higherIsBetter": true,
+      "min": 0,
+      "max": 100,
+      "description": "Comprehensive tool-use benchmark measuring reliability across diverse tool-calling tasks."
+    },
+    {
+      "key": "tau2_telecom_tool",
+      "label": "Tau2-bench Telecom",
+      "category": "Tool use",
+      "format": "percent",
+      "higherIsBetter": true,
+      "min": 0,
+      "max": 100,
+      "description": "Telecom domain agent benchmark in tool-enabled settings."
+    },
+    {
+      "key": "frontier_science_research",
+      "label": "Frontier Science Research",
+      "category": "Academic",
+      "format": "percent",
+      "higherIsBetter": true,
+      "min": 0,
+      "max": 100,
+      "description": "Advanced scientific reasoning benchmark on frontier research-style questions."
+    },
+    {
+      "key": "frontiermath_tier_1_3",
+      "label": "FrontierMath Tier 1-3",
+      "category": "Academic",
+      "format": "percent",
+      "higherIsBetter": true,
+      "min": 0,
+      "max": 100,
+      "description": "FrontierMath benchmark, tiers 1-3, measuring high-level mathematics performance."
+    },
+    {
+      "key": "frontiermath_tier_4",
+      "label": "FrontierMath Tier 4",
+      "category": "Academic",
+      "format": "percent",
+      "higherIsBetter": true,
+      "min": 0,
+      "max": 100,
+      "description": "FrontierMath tier 4 benchmark focused on the hardest math problems in the suite."
+    },
+    {
+      "key": "gpqa_diamond",
+      "label": "GPQA Diamond",
+      "category": "Academic",
+      "format": "percent",
+      "higherIsBetter": true,
+      "min": 0,
+      "max": 100,
+      "description": "Graduate-level scientific QA benchmark emphasizing difficult, expert knowledge questions."
+    },
+    {
+      "key": "hles_no_tools",
+      "label": "Humanity's Last Exam (no tools)",
+      "category": "Academic",
+      "format": "percent",
+      "higherIsBetter": true,
+      "min": 0,
+      "max": 100,
+      "description": "Humanity's Last Exam benchmark without external tools."
+    },
+    {
+      "key": "hles_with_tools",
+      "label": "Humanity's Last Exam (with tools)",
+      "category": "Academic",
+      "format": "percent",
+      "higherIsBetter": true,
+      "min": 0,
+      "max": 100,
+      "description": "Humanity's Last Exam benchmark with external tools enabled."
+    },
+    {
+      "key": "graphwalks_bfs_0_128k",
+      "label": "Graphwalks BFS 0K-128K",
+      "category": "Long context",
+      "format": "percent",
+      "higherIsBetter": true,
+      "min": 0,
+      "max": 100,
+      "description": "Long-context graph traversal benchmark at 0K-128K token contexts."
+    },
+    {
+      "key": "graphwalks_bfs_256k_1m",
+      "label": "Graphwalks BFS 256K-1M",
+      "category": "Long context",
+      "format": "percent",
+      "higherIsBetter": true,
+      "min": 0,
+      "max": 100,
+      "description": "Long-context graph traversal benchmark at 256K-1M token contexts."
+    },
+    {
+      "key": "graphwalks_parents_0_128k",
+      "label": "Graphwalks parents 0-128K (accuracy)",
+      "category": "Long context",
+      "format": "percent",
+      "higherIsBetter": true,
+      "min": 0,
+      "max": 100,
+      "description": "Long-context graph parent-tracking accuracy at 0K-128K token contexts."
+    },
+    {
+      "key": "graphwalks_parents_256k_1m",
+      "label": "Graphwalks parents 256K-1M (accuracy)",
+      "category": "Long context",
+      "format": "percent",
+      "higherIsBetter": true,
+      "min": 0,
+      "max": 100,
+      "description": "Long-context graph parent-tracking accuracy at 256K-1M token contexts."
+    },
+    {
+      "key": "mrcr_4k_8k",
+      "label": "OpenAI MRCR v2 8-needle 4K-8K",
+      "category": "Long context",
+      "format": "percent",
+      "higherIsBetter": true,
+      "min": 0,
+      "max": 100,
+      "description": "Multi-needle retrieval benchmark at 4K-8K context length."
+    },
+    {
+      "key": "mrcr_8k_16k",
+      "label": "OpenAI MRCR v2 8-needle 8K-16K",
+      "category": "Long context",
+      "format": "percent",
+      "higherIsBetter": true,
+      "min": 0,
+      "max": 100,
+      "description": "Multi-needle retrieval benchmark at 8K-16K context length."
+    },
+    {
+      "key": "mrcr_16k_32k",
+      "label": "OpenAI MRCR v2 8-needle 16K-32K",
+      "category": "Long context",
+      "format": "percent",
+      "higherIsBetter": true,
+      "min": 0,
+      "max": 100,
+      "description": "Multi-needle retrieval benchmark at 16K-32K context length."
+    },
+    {
+      "key": "mrcr_32k_64k",
+      "label": "OpenAI MRCR v2 8-needle 32K-64K",
+      "category": "Long context",
+      "format": "percent",
+      "higherIsBetter": true,
+      "min": 0,
+      "max": 100,
+      "description": "Multi-needle retrieval benchmark at 32K-64K context length."
+    },
+    {
+      "key": "mrcr_64k_128k",
+      "label": "OpenAI MRCR v2 8-needle 64K-128K",
+      "category": "Long context",
+      "format": "percent",
+      "higherIsBetter": true,
+      "min": 0,
+      "max": 100,
+      "description": "Multi-needle retrieval benchmark at 64K-128K context length."
+    },
+    {
+      "key": "mrcr_128k_256k",
+      "label": "OpenAI MRCR v2 8-needle 128K-256K",
+      "category": "Long context",
+      "format": "percent",
+      "higherIsBetter": true,
+      "min": 0,
+      "max": 100,
+      "description": "Multi-needle retrieval benchmark at 128K-256K context length."
+    },
+    {
+      "key": "mrcr_256k_512k",
+      "label": "OpenAI MRCR v2 8-needle 256K-512K",
+      "category": "Long context",
+      "format": "percent",
+      "higherIsBetter": true,
+      "min": 0,
+      "max": 100,
+      "description": "Multi-needle retrieval benchmark at 256K-512K context length."
+    },
+    {
+      "key": "mrcr_512k_1m",
+      "label": "OpenAI MRCR v2 8-needle 512K-1M",
+      "category": "Long context",
+      "format": "percent",
+      "higherIsBetter": true,
+      "min": 0,
+      "max": 100,
+      "description": "Multi-needle retrieval benchmark at 512K-1M context length."
+    },
+    {
+      "key": "arc_agi_1_verified",
+      "label": "ARC-AGI-1 (Verified)",
+      "category": "Abstract reasoning",
+      "format": "percent",
+      "higherIsBetter": true,
+      "min": 0,
+      "max": 100,
+      "description": "Abstract reasoning benchmark (ARC-AGI-1), verified scoring protocol."
+    },
+    {
+      "key": "arc_agi_2_verified",
+      "label": "ARC-AGI-2 (Verified)",
+      "category": "Abstract reasoning",
+      "format": "percent",
+      "higherIsBetter": true,
+      "min": 0,
+      "max": 100,
+      "description": "Abstract reasoning benchmark (ARC-AGI-2), verified scoring protocol."
+    },
+    {
+      "key": "omnidocbench_edit_distance",
+      "label": "OmniDocBench (normalized edit distance)",
+      "category": "Evals without reasoning",
+      "format": "decimal",
+      "higherIsBetter": false,
+      "min": 0,
+      "max": 1,
+      "description": "Document understanding benchmark using normalized edit distance; lower score is better."
+    },
+    {
+      "key": "tau2_telecom_no_reasoning",
+      "label": "Tau2-bench Telecom",
+      "category": "Evals without reasoning",
+      "format": "percent",
+      "higherIsBetter": true,
+      "min": 0,
+      "max": 100,
+      "description": "Telecom benchmark in a no-reasoning configuration."
+    },
+    {
+      "key": "hles_search_blocklist_code",
+      "label": "Humanity's Last Exam (Search blocklist + Code)",
+      "category": "Academic",
+      "format": "percent",
+      "higherIsBetter": true,
+      "min": 0,
+      "max": 100,
+      "description": "Humanity's Last Exam variant with search constraints and code execution."
+    },
+    {
+      "key": "terminal_bench_2_terminus2",
+      "label": "Terminal-Bench 2.0 (Terminus-2 harness)",
+      "category": "Coding",
+      "format": "percent",
+      "higherIsBetter": true,
+      "min": 0,
+      "max": 100,
+      "description": "Terminal-Bench 2.0 measured using the Terminus-2 harness."
+    },
+    {
+      "key": "terminal_bench_2_other_harness",
+      "label": "Terminal-Bench 2.0 (Other self-reported harness)",
+      "category": "Coding",
+      "format": "percent",
+      "higherIsBetter": true,
+      "min": 0,
+      "max": 100,
+      "description": "Terminal-Bench 2.0 from another self-reported harness."
+    },
+    {
+      "key": "swebench_verified_single",
+      "label": "SWE-Bench Verified (Single attempt)",
+      "category": "Coding",
+      "format": "percent",
+      "higherIsBetter": true,
+      "min": 0,
+      "max": 100,
+      "description": "SWE-Bench Verified using a single-attempt setting on real software issues."
+    },
+    {
+      "key": "livecodebench_pro_elo",
+      "label": "LiveCodeBench Pro (Elo)",
+      "category": "Coding",
+      "format": "decimal",
+      "higherIsBetter": true,
+      "min": 2000,
+      "max": 3000,
+      "description": "Competitive programming benchmark reported in Elo rating."
+    },
+    {
+      "key": "scicode",
+      "label": "SciCode",
+      "category": "Coding",
+      "format": "percent",
+      "higherIsBetter": true,
+      "min": 0,
+      "max": 100,
+      "description": "Scientific coding benchmark evaluating code for research and technical problem-solving."
+    },
+    {
+      "key": "apex_agents",
+      "label": "APEX-Agents",
+      "category": "Professional",
+      "format": "percent",
+      "higherIsBetter": true,
+      "min": 0,
+      "max": 100,
+      "description": "Long-horizon professional agent benchmark across multi-step business tasks."
+    },
+    {
+      "key": "gdpval_aa_elo",
+      "label": "GDPval-AA Elo",
+      "category": "Professional",
+      "format": "decimal",
+      "higherIsBetter": true,
+      "min": 1100,
+      "max": 1700,
+      "description": "GDPval-AA benchmark reported as Elo for expert-level task performance."
+    },
+    {
+      "key": "tau2_retail",
+      "label": "tau2-bench Retail",
+      "category": "Tool use",
+      "format": "percent",
+      "higherIsBetter": true,
+      "min": 0,
+      "max": 100,
+      "description": "Retail domain benchmark for agentic task execution quality."
+    },
+    {
+      "key": "mmmlu",
+      "label": "MMMLU",
+      "category": "Academic",
+      "format": "percent",
+      "higherIsBetter": true,
+      "min": 0,
+      "max": 100,
+      "description": "Massive multilingual understanding benchmark across many languages and domains."
+    },
+    {
+      "key": "mrcr_v2_128k_avg",
+      "label": "MRCR v2 (8-needle) 128k (average)",
+      "category": "Long context",
+      "format": "percent",
+      "higherIsBetter": true,
+      "min": 0,
+      "max": 100,
+      "description": "MRCR v2 long-context retrieval score at 128K context (average)."
+    },
+    {
+      "key": "mrcr_v2_1m_pointwise",
+      "label": "MRCR v2 (8-needle) 1M (pointwise)",
+      "category": "Long context",
+      "format": "percent",
+      "higherIsBetter": true,
+      "min": 0,
+      "max": 100,
+      "description": "MRCR v2 long-context retrieval score at 1M context (pointwise)."
+    },
+    {
+      "key": "input_price_per_1m",
+      "label": "Input price ($/1M tokens)",
+      "category": "Cost & speed",
+      "format": "decimal",
+      "higherIsBetter": false,
+      "min": 0,
+      "max": 5,
+      "description": "Model input token price in USD per 1M tokens; lower cost is better."
+    },
+    {
+      "key": "output_price_per_1m",
+      "label": "Output price ($/1M tokens)",
+      "category": "Cost & speed",
+      "format": "decimal",
+      "higherIsBetter": false,
+      "min": 0,
+      "max": 10,
+      "description": "Model output token price in USD per 1M tokens; lower cost is better."
+    },
+    {
+      "key": "output_speed_tps",
+      "label": "Output speed (tokens/s)",
+      "category": "Cost & speed",
+      "format": "decimal",
+      "higherIsBetter": true,
+      "min": 0,
+      "max": 400,
+      "description": "Generation throughput measured as output tokens per second."
+    },
+    {
+      "key": "charxiv_reasoning",
+      "label": "CharXiv Reasoning",
+      "category": "Computer use and vision",
+      "format": "percent",
+      "higherIsBetter": true,
+      "min": 0,
+      "max": 100,
+      "description": "Chart-based reasoning benchmark requiring synthesis of complex visual information."
+    },
+    {
+      "key": "video_mmmu",
+      "label": "Video-MMMU",
+      "category": "Computer use and vision",
+      "format": "percent",
+      "higherIsBetter": true,
+      "min": 0,
+      "max": 100,
+      "description": "Video-based multimodal understanding benchmark over temporal and visual knowledge."
+    },
+    {
+      "key": "simpleqa_verified",
+      "label": "SimpleQA Verified",
+      "category": "Academic",
+      "format": "percent",
+      "higherIsBetter": true,
+      "min": 0,
+      "max": 100,
+      "description": "Verified factual QA benchmark focused on parametric knowledge accuracy."
+    },
+    {
+      "key": "facts_benchmark_suite",
+      "label": "FACTS Benchmark Suite",
+      "category": "Academic",
+      "format": "percent",
+      "higherIsBetter": true,
+      "min": 0,
+      "max": 100,
+      "description": "Factuality benchmark suite across grounding, parametric, search, and multimodal settings."
+    },
+    {
+      "key": "livecodebench",
+      "label": "LiveCodeBench",
+      "category": "Coding",
+      "format": "percent",
+      "higherIsBetter": true,
+      "min": 0,
+      "max": 100,
+      "description": "Code-generation benchmark on recent competitive programming tasks."
+    },
+    {
+      "key": "hles_search_code_execution",
+      "label": "Humanity's Last Exam (Search + code execution)",
+      "category": "Academic",
+      "format": "percent",
+      "higherIsBetter": true,
+      "min": 0,
+      "max": 100,
+      "description": "Humanity's Last Exam variant with search and executable code tools."
+    },
+    {
+      "key": "imo_2025",
+      "label": "International Math Olympiad 2025",
+      "category": "Academic",
+      "format": "percent",
+      "higherIsBetter": true,
+      "min": 0,
+      "max": 100,
+      "description": "International Math Olympiad 2025 theory-style mathematics benchmark."
+    },
+    {
+      "key": "codeforces_elo",
+      "label": "Codeforces (Elo)",
+      "category": "Coding",
+      "format": "decimal",
+      "higherIsBetter": true,
+      "min": 1500,
+      "max": 3600,
+      "description": "Codeforces-style algorithmic coding performance measured in Elo."
+    },
+    {
+      "key": "ipho_2025_theory",
+      "label": "International Physics Olympiad 2025 (theory)",
+      "category": "Academic",
+      "format": "percent",
+      "higherIsBetter": true,
+      "min": 0,
+      "max": 100,
+      "description": "International Physics Olympiad 2025 theory benchmark."
+    },
+    {
+      "key": "cmt_benchmark",
+      "label": "CMT-Benchmark",
+      "category": "Academic",
+      "format": "percent",
+      "higherIsBetter": true,
+      "min": 0,
+      "max": 100,
+      "description": "Condensed matter theory benchmark for advanced scientific reasoning."
+    },
+    {
+      "key": "icho_2025_theory",
+      "label": "International Chemistry Olympiad 2025 (theory)",
+      "category": "Academic",
+      "format": "percent",
+      "higherIsBetter": true,
+      "min": 0,
+      "max": 100,
+      "description": "International Chemistry Olympiad 2025 theory benchmark."
+    }
   ],
   "modelBenchmarks": [
     {
@@ -56,26 +619,26 @@
       "provider": "OpenAI",
       "color": "#65dbb8",
       "scores": {
-        "gdpval": 83.0,
-        "financeagent_v1_1": 56.0,
+        "gdpval": 83,
+        "financeagent_v1_1": 56,
         "ib_modeling_internal": 87.3,
         "officeqa": 68.1,
         "swebench_pro_public": 57.7,
         "terminal_bench_2": 75.1,
-        "osworld_verified": 75.0,
+        "osworld_verified": 75,
         "mmmu_pro_no_tools": 81.2,
         "mmmu_pro_with_tools": 82.1,
         "browsecomp": 82.7,
         "mcp_atlas": 67.2,
         "toolathlon": 54.6,
         "tau2_telecom_tool": 98.9,
-        "frontier_science_research": 33.0,
+        "frontier_science_research": 33,
         "frontiermath_tier_1_3": 47.6,
         "frontiermath_tier_4": 27.1,
         "gpqa_diamond": 92.8,
         "hles_no_tools": 39.8,
         "hles_with_tools": 52.1,
-        "graphwalks_bfs_0_128k": 93.0,
+        "graphwalks_bfs_0_128k": 93,
         "graphwalks_bfs_256k_1m": 21.4,
         "graphwalks_parents_0_128k": 89.8,
         "graphwalks_parents_256k_1m": 32.4,
@@ -83,7 +646,7 @@
         "mrcr_8k_16k": 91.4,
         "mrcr_16k_32k": 97.2,
         "mrcr_32k_64k": 90.5,
-        "mrcr_64k_128k": 86.0,
+        "mrcr_64k_128k": 86,
         "mrcr_128k_256k": 79.3,
         "mrcr_256k_512k": 57.5,
         "mrcr_512k_1m": 36.6,
@@ -97,13 +660,13 @@
       "provider": "OpenAI",
       "color": "#67b5ff",
       "scores": {
-        "gdpval": 82.0,
+        "gdpval": 82,
         "financeagent_v1_1": 61.5,
         "ib_modeling_internal": 83.6,
         "browsecomp": 89.3,
         "frontier_science_research": 36.7,
-        "frontiermath_tier_1_3": 50.0,
-        "frontiermath_tier_4": 38.0,
+        "frontiermath_tier_1_3": 50,
+        "frontiermath_tier_4": 38,
         "gpqa_diamond": 94.4,
         "hles_no_tools": 42.7,
         "hles_with_tools": 58.7,
@@ -118,15 +681,17 @@
       "color": "#ffbe69",
       "scores": {
         "gdpval": 70.9,
-        "financeagent_v1_1": 54.0,
+        "financeagent_v1_1": 54,
         "ib_modeling_internal": 79.3,
         "officeqa": 65.1,
         "swebench_pro_public": 56.8,
         "terminal_bench_2": 77.3,
-        "osworld_verified": 74.0,
+        "osworld_verified": 74,
         "browsecomp": 77.3,
         "toolathlon": 51.9,
-        "gpqa_diamond": 92.6
+        "gpqa_diamond": 92.6,
+        "terminal_bench_2_terminus2": 64.7,
+        "terminal_bench_2_other_harness": 77.3
       }
     },
     {
@@ -154,16 +719,32 @@
         "gpqa_diamond": 92.4,
         "hles_no_tools": 34.5,
         "hles_with_tools": 45.5,
-        "graphwalks_bfs_0_128k": 94.0,
-        "graphwalks_parents_0_128k": 89.0,
+        "graphwalks_bfs_0_128k": 94,
+        "graphwalks_parents_0_128k": 89,
         "mrcr_4k_8k": 98.2,
         "mrcr_8k_16k": 89.3,
         "mrcr_16k_32k": 95.3,
-        "mrcr_32k_64k": 92.0,
+        "mrcr_32k_64k": 92,
         "mrcr_64k_128k": 85.6,
-        "mrcr_128k_256k": 77.0,
+        "mrcr_128k_256k": 77,
         "arc_agi_1_verified": 86.2,
-        "arc_agi_2_verified": 52.9
+        "arc_agi_2_verified": 52.9,
+        "hles_search_blocklist_code": 45.5,
+        "terminal_bench_2_terminus2": 54,
+        "terminal_bench_2_other_harness": 62.2,
+        "swebench_verified_single": 80,
+        "livecodebench_pro_elo": 2393,
+        "scicode": 52,
+        "apex_agents": 23,
+        "gdpval_aa_elo": 1462,
+        "tau2_retail": 82,
+        "mmmlu": 89.6,
+        "mrcr_v2_128k_avg": 83.8,
+        "hles_search_code_execution": 45.5,
+        "imo_2025": 71.4,
+        "ipho_2025_theory": 70.5,
+        "cmt_benchmark": 41,
+        "icho_2025_theory": 72
       }
     },
     {
@@ -178,7 +759,7 @@
         "frontiermath_tier_4": 31.3,
         "gpqa_diamond": 93.2,
         "hles_no_tools": 36.6,
-        "hles_with_tools": 50.0,
+        "hles_with_tools": 50,
         "arc_agi_1_verified": 90.5,
         "arc_agi_2_verified": 54.2
       }
@@ -211,6 +792,293 @@
       "scores": {
         "tau2_telecom_no_reasoning": 43.6
       }
+    },
+    {
+      "id": "gemini-3-1-pro",
+      "name": "Gemini 3.1 Pro",
+      "provider": "Google",
+      "color": "#5ec4ff",
+      "scores": {
+        "hles_no_tools": 44.4,
+        "hles_search_blocklist_code": 51.4,
+        "arc_agi_2_verified": 77.1,
+        "gpqa_diamond": 94.3,
+        "terminal_bench_2_terminus2": 68.5,
+        "swebench_verified_single": 80.6,
+        "swebench_pro_public": 54.2,
+        "livecodebench_pro_elo": 2887,
+        "scicode": 59,
+        "apex_agents": 33.5,
+        "gdpval_aa_elo": 1317,
+        "tau2_retail": 90.8,
+        "tau2_telecom_tool": 99.3,
+        "mcp_atlas": 69.2,
+        "browsecomp": 85.9,
+        "mmmu_pro_no_tools": 80.5,
+        "mmmlu": 92.6,
+        "mrcr_v2_128k_avg": 84.9,
+        "mrcr_v2_1m_pointwise": 26.3
+      }
+    },
+    {
+      "id": "gemini-3-pro",
+      "name": "Gemini 3 Pro",
+      "provider": "Google",
+      "color": "#80d4ff",
+      "scores": {
+        "hles_no_tools": 37.5,
+        "hles_search_blocklist_code": 45.8,
+        "arc_agi_2_verified": 31.1,
+        "gpqa_diamond": 91.9,
+        "terminal_bench_2_terminus2": 56.9,
+        "swebench_verified_single": 76.2,
+        "swebench_pro_public": 43.3,
+        "livecodebench_pro_elo": 2439,
+        "scicode": 56,
+        "apex_agents": 18.4,
+        "gdpval_aa_elo": 1195,
+        "tau2_retail": 85.3,
+        "tau2_telecom_tool": 98,
+        "mcp_atlas": 54.1,
+        "browsecomp": 59.2,
+        "mmmu_pro_no_tools": 81,
+        "mmmlu": 91.8,
+        "mrcr_v2_128k_avg": 77,
+        "mrcr_v2_1m_pointwise": 26.3
+      }
+    },
+    {
+      "id": "claude-sonnet-4-6",
+      "name": "Claude Sonnet 4.6",
+      "provider": "Anthropic",
+      "color": "#67b5ff",
+      "scores": {
+        "hles_no_tools": 33.2,
+        "hles_search_blocklist_code": 49,
+        "arc_agi_2_verified": 58.3,
+        "gpqa_diamond": 89.9,
+        "terminal_bench_2_terminus2": 59.1,
+        "swebench_verified_single": 79.6,
+        "scicode": 47,
+        "gdpval_aa_elo": 1633,
+        "tau2_retail": 91.7,
+        "tau2_telecom_tool": 97.9,
+        "mcp_atlas": 61.3,
+        "browsecomp": 74.7,
+        "mmmu_pro_no_tools": 74.5,
+        "mmmlu": 89.3,
+        "mrcr_v2_128k_avg": 84.9
+      }
+    },
+    {
+      "id": "claude-opus-4-6",
+      "name": "Claude Opus 4.6",
+      "provider": "Anthropic",
+      "color": "#8ec8ff",
+      "scores": {
+        "hles_no_tools": 40,
+        "hles_search_blocklist_code": 53.1,
+        "arc_agi_2_verified": 68.8,
+        "gpqa_diamond": 91.3,
+        "terminal_bench_2_terminus2": 65.4,
+        "swebench_verified_single": 80.8,
+        "scicode": 52,
+        "apex_agents": 29.8,
+        "gdpval_aa_elo": 1606,
+        "tau2_retail": 91.9,
+        "tau2_telecom_tool": 99.3,
+        "mcp_atlas": 59.5,
+        "browsecomp": 84,
+        "mmmu_pro_no_tools": 73.9,
+        "mmmlu": 91.1,
+        "mrcr_v2_128k_avg": 84,
+        "hles_search_code_execution": 53.1,
+        "codeforces_elo": 2352,
+        "ipho_2025_theory": 71.6,
+        "cmt_benchmark": 17.1
+      }
+    },
+    {
+      "id": "gemini-3-1-flash-lite-high",
+      "name": "Gemini 3.1 Flash-Lite (High)",
+      "provider": "Google",
+      "color": "#3fb8ff",
+      "scores": {
+        "input_price_per_1m": 0.25,
+        "output_price_per_1m": 1.5,
+        "output_speed_tps": 363,
+        "hles_no_tools": 16,
+        "gpqa_diamond": 86.9,
+        "mmmu_pro_no_tools": 76.8,
+        "charxiv_reasoning": 73.2,
+        "video_mmmu": 84.8,
+        "simpleqa_verified": 43.3,
+        "facts_benchmark_suite": 40.6,
+        "mmmlu": 88.9,
+        "livecodebench": 72,
+        "mrcr_v2_128k_avg": 60.1,
+        "mrcr_v2_1m_pointwise": 12.3
+      }
+    },
+    {
+      "id": "gemini-2-5-flash-dynamic",
+      "name": "Gemini 2.5 Flash (Dynamic)",
+      "provider": "Google",
+      "color": "#67c9ff",
+      "scores": {
+        "input_price_per_1m": 0.3,
+        "output_price_per_1m": 2.5,
+        "output_speed_tps": 249,
+        "hles_no_tools": 11,
+        "gpqa_diamond": 82.8,
+        "mmmu_pro_no_tools": 66.7,
+        "charxiv_reasoning": 63.7,
+        "video_mmmu": 79.2,
+        "simpleqa_verified": 28.1,
+        "facts_benchmark_suite": 50.4,
+        "mmmlu": 86.6,
+        "livecodebench": 62.6,
+        "mrcr_v2_128k_avg": 54.3,
+        "mrcr_v2_1m_pointwise": 21
+      }
+    },
+    {
+      "id": "gemini-2-5-flash-lite-dynamic",
+      "name": "Gemini 2.5 Flash-Lite (Dynamic)",
+      "provider": "Google",
+      "color": "#93dbff",
+      "scores": {
+        "input_price_per_1m": 0.1,
+        "output_price_per_1m": 0.4,
+        "output_speed_tps": 366,
+        "hles_no_tools": 6.9,
+        "gpqa_diamond": 66.7,
+        "mmmu_pro_no_tools": 51,
+        "charxiv_reasoning": 55.5,
+        "video_mmmu": 60.7,
+        "simpleqa_verified": 11.5,
+        "facts_benchmark_suite": 17.9,
+        "mmmlu": 84.5,
+        "livecodebench": 34.3,
+        "mrcr_v2_128k_avg": 30.6,
+        "mrcr_v2_1m_pointwise": 5.4
+      }
+    },
+    {
+      "id": "gpt-5-mini-high",
+      "name": "GPT-5 mini (High)",
+      "provider": "OpenAI",
+      "color": "#65dbb8",
+      "scores": {
+        "input_price_per_1m": 0.25,
+        "output_price_per_1m": 2,
+        "output_speed_tps": 71,
+        "hles_no_tools": 16.7,
+        "gpqa_diamond": 82.3,
+        "mmmu_pro_no_tools": 74.1,
+        "charxiv_reasoning": 75.5,
+        "video_mmmu": 82.5,
+        "simpleqa_verified": 9.5,
+        "facts_benchmark_suite": 33.7,
+        "mmmlu": 84.9,
+        "livecodebench": 80.4,
+        "mrcr_v2_128k_avg": 52.5
+      }
+    },
+    {
+      "id": "claude-4-5-haiku-et",
+      "name": "Claude 4.5 Haiku (Extended Thinking)",
+      "provider": "Anthropic",
+      "color": "#7ab6ff",
+      "scores": {
+        "input_price_per_1m": 1,
+        "output_price_per_1m": 5,
+        "output_speed_tps": 108,
+        "hles_no_tools": 9.7,
+        "gpqa_diamond": 73,
+        "mmmu_pro_no_tools": 58,
+        "charxiv_reasoning": 61.7,
+        "simpleqa_verified": 5.5,
+        "facts_benchmark_suite": 18.6,
+        "mmmlu": 83,
+        "livecodebench": 53.2,
+        "mrcr_v2_128k_avg": 35.3
+      }
+    },
+    {
+      "id": "grok-4-1-fast-reasoning",
+      "name": "Grok 4.1 Fast (Reasoning)",
+      "provider": "xAI",
+      "color": "#ff9f6a",
+      "scores": {
+        "input_price_per_1m": 0.2,
+        "output_price_per_1m": 0.5,
+        "output_speed_tps": 145,
+        "hles_no_tools": 17.6,
+        "gpqa_diamond": 84.3,
+        "mmmu_pro_no_tools": 63,
+        "charxiv_reasoning": 31.6,
+        "video_mmmu": 74.6,
+        "simpleqa_verified": 19.5,
+        "facts_benchmark_suite": 42.1,
+        "mmmlu": 86.8,
+        "livecodebench": 76.5,
+        "mrcr_v2_128k_avg": 54.6,
+        "mrcr_v2_1m_pointwise": 6.1
+      }
+    },
+    {
+      "id": "gemini-3-1-deep-think-feb-2026",
+      "name": "Gemini 3.1 Deep Think (Feb 2026)",
+      "provider": "Google",
+      "color": "#2ea8ff",
+      "scores": {
+        "arc_agi_2_verified": 84.6,
+        "hles_no_tools": 48.4,
+        "hles_search_code_execution": 53.4,
+        "mmmu_pro_no_tools": 81.5,
+        "imo_2025": 81.5,
+        "codeforces_elo": 3455,
+        "ipho_2025_theory": 87.7,
+        "cmt_benchmark": 50.5,
+        "icho_2025_theory": 82.8
+      }
+    },
+    {
+      "id": "gemini-3-pro-preview-high",
+      "name": "Gemini 3 Pro Preview (Thinking High)",
+      "provider": "Google",
+      "color": "#5ec4ff",
+      "scores": {
+        "arc_agi_2_verified": 31.1,
+        "hles_no_tools": 37.5,
+        "hles_search_code_execution": 45.8,
+        "mmmu_pro_no_tools": 81,
+        "imo_2025": 14.3,
+        "codeforces_elo": 2512,
+        "ipho_2025_theory": 76.3,
+        "cmt_benchmark": 39.5,
+        "icho_2025_theory": 69.6
+      }
+    }
+  ],
+  "sources": [
+    {
+      "label": "OpenAI - Introducing GPT-5.4",
+      "url": "https://openai.com/index/introducing-gpt-5-4/",
+      "published": "2026-03-05"
+    },
+    {
+      "label": "Gemini/Claude benchmark table (user provided)",
+      "published": "2026-03-13"
+    },
+    {
+      "label": "Gemini/Claude/Grok speed-cost benchmark table (user provided)",
+      "published": "2026-03-13"
+    },
+    {
+      "label": "Gemini Deep Think benchmark table (user provided)",
+      "published": "2026-03-13"
     }
   ]
 }
