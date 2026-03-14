@@ -258,6 +258,10 @@ h3 {
   background: linear-gradient(120deg, #0f2637, #163548);
 }
 
+.service-tool-callout {
+  margin-top: 1.4rem;
+}
+
 .values-callout p,
 .panel p,
 .story-lead {

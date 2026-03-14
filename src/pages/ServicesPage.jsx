@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { serviceCards } from '../data/siteData';
 
 export default function ServicesPage() {
@@ -19,6 +20,17 @@ export default function ServicesPage() {
           </article>
         ))}
       </div>
+
+      <article className="values-callout service-tool-callout">
+        <h2>Benchmark Explorer</h2>
+        <p>
+          Compare model performance across coding, reasoning, long-context, multimodal, and academic benchmarks
+          to support model selection for your product and workflow.
+        </p>
+        <Link className="button" to="/models">
+          Open Model Comparison
+        </Link>
+      </article>
     </section>
   );
 }
