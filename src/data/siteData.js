@@ -58,14 +58,14 @@ export const successStories = [
     tags: ['100+ Classes', 'Real-Time Inference', 'Expert Labeling', 'Transformer Backbone']
   },
   {
-    title: 'Sneakers Radar: Real-Time Inventory Intelligence',
-    lead: 'Live stock and price tracking across major global retailers.',
+    title: 'Sneakers Radar: Cross-Platform Sneaker Automation',
+    lead: 'Automated listing, delisting, and pricing operations across StockX, GOAT, and Poizon.',
     body: [
-      'Aggregates product availability and pricing across Nike, JD Sports, Foot Locker, and other global channels.',
-      'Indexes over 120k SKUs with near real-time updates and alerting integrations.',
-      'Power users access analytics through dashboards, API endpoints, and team notifications.'
+      'Unified automation platform connecting StockX, GOAT, and Poizon into a single operational workflow.',
+      'Maintains a live inventory library so teams can push instant listings, delistings, and price updates across all three marketplaces from one place.',
+      'Automates price inquiry and competitive undercutting logic, letting reseller teams react to market shifts without manual repricing.'
     ],
-    tags: ['120k+ SKUs', 'Global Retail', 'Realtime Analytics', 'Slack + API']
+    tags: ['StockX + GOAT + Poizon', 'Auto List & Delist', 'Price Inquiry & Repricing', 'Inventory Library']
   },
   {
     title: 'Talk2Dom: AI-Powered Element Locator',

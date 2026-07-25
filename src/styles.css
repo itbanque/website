@@ -278,10 +278,18 @@ h3 {
   margin: 0 auto;
 }
 
+.carousel-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
 .carousel-stage {
   position: relative;
   overflow: hidden;
   border-radius: var(--radius);
+  flex: 1;
+  min-width: 0;
 }
 
 .carousel-track {
@@ -323,9 +331,7 @@ h3 {
 }
 
 .carousel-arrow {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
+  flex: none;
   width: 42px;
   height: 42px;
   border: 1px solid #95c8da4f;
@@ -341,14 +347,6 @@ h3 {
 .carousel-arrow:hover {
   background: #143149;
   border-color: #95c8da87;
-}
-
-.carousel-arrow.left {
-  left: 0.9rem;
-}
-
-.carousel-arrow.right {
-  right: 0.9rem;
 }
 
 .dot-row {
@@ -823,6 +821,10 @@ pre {
 
   .carousel-controls {
     justify-content: center;
+  }
+
+  .carousel-row {
+    gap: 0.4rem;
   }
 
   .carousel-arrow {
