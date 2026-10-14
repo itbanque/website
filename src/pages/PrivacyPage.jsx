@@ -1,3 +1,5 @@
+import { PageHero } from '../components/ui';
+
 const sections = [
   {
     title: '1. Information We Collect',
@@ -27,25 +29,26 @@ const sections = [
 
 export default function PrivacyPage() {
   return (
-    <section className="container section privacy">
-      <div className="section-heading left">
-        <h1>Privacy Policy</h1>
-        <p>Effective date: July 1, 2025</p>
-      </div>
-      <div className="stack">
-        {sections.map((section) => (
-          <article key={section.title} className="panel">
-            <h2>{section.title}</h2>
-            <p>{section.body}</p>
+    <>
+      <PageHero eyebrow="Legal" title="Privacy policy">
+        <p className="lead">Effective date: July 1, 2025</p>
+      </PageHero>
+      <section className="container section-bottom">
+        <div className="prose">
+          {sections.map((section) => (
+            <article key={section.title}>
+              <h2>{section.title}</h2>
+              <p>{section.body}</p>
+            </article>
+          ))}
+          <article>
+            <h2>7. Contact</h2>
+            <p>
+              Questions about this policy can be sent to <a href="mailto:contact@itbanque.com">contact@itbanque.com</a>.
+            </p>
           </article>
-        ))}
-        <article className="panel">
-          <h2>7. Contact</h2>
-          <p>
-            Questions about this policy can be sent to <a href="mailto:contact@itbanque.com">contact@itbanque.com</a>.
-          </p>
-        </article>
-      </div>
-    </section>
+        </div>
+      </section>
+    </>
   );
 }

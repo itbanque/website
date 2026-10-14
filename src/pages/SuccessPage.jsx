@@ -1,97 +1,104 @@
-import { useEffect, useState } from 'react';
-import { successStories } from '../data/siteData';
+import { useState } from 'react';
+import { CtaPanel, PageHero } from '../components/ui';
+import { storyFilters, successStories } from '../data/siteData';
 
-export default function SuccessPage() {
-  const [index, setIndex] = useState(0);
-  const [touchStartX, setTouchStartX] = useState(null);
-
-  function prevStory() {
-    setIndex((value) => (value - 1 + successStories.length) % successStories.length);
-  }
-
-  function nextStory() {
-    setIndex((value) => (value + 1) % successStories.length);
-  }
-
-  useEffect(() => {
-    function onKeyDown(event) {
-      if (event.key === 'ArrowRight') {
-        nextStory();
-      }
-      if (event.key === 'ArrowLeft') {
-        prevStory();
-      }
-    }
-
-    window.addEventListener('keydown', onKeyDown);
-    return () => window.removeEventListener('keydown', onKeyDown);
-  }, []);
-
-  return (
-    <section className="container section">
-      <div className="section-heading">
-        <h1>Success Stories</h1>
-        <p>Selected delivery outcomes from multi-domain AI programs.</p>
-      </div>
-
-      <div className="carousel">
-        <div className="carousel-row">
-          <button type="button" className="carousel-arrow left" aria-label="Previous story" onClick={prevStory}>
-            &lt;
-          </button>
-
-          <div
-            className="carousel-stage"
-            onTouchStart={(event) => setTouchStartX(event.touches[0].clientX)}
-            onTouchEnd={(event) => {
-              if (touchStartX === null) return;
-              const deltaX = event.changedTouches[0].clientX - touchStartX;
-              if (deltaX > 50) prevStory();
-              if (deltaX < -50) nextStory();
-              setTouchStartX(null);
-            }}
-          >
-            <div className="carousel-track" style={{ transform: `translateX(-${index * 100}%)` }}>
-              {successStories.map((story) => (
-                <article className="story-slide" key={story.title}>
-                  <div className="story-card">
-                    <h2>{story.title}</h2>
-                    <p className="story-lead">{story.lead}</p>
-                    <ul>
-                      {story.body.map((item) => (
-                        <li key={item}>{item}</li>
-                      ))}
-                    </ul>
-                    <div className="story-tags">
-                      {story.tags.map((tag) => (
-                        <span key={tag}>{tag}</span>
-                      ))}
-                    </div>
-                  </div>
-                </article>
-              ))}
-            </div>
-          </div>
-
-          <button type="button" className="carousel-arrow right" aria-label="Next story" onClick={nextStory}>
-            &gt;
-          </button>
-        </div>
-
-        <div className="carousel-controls" aria-label="Select story">
-          <div className="dot-row">
-            {successStories.map((story, storyIndex) => (
-              <button
-                key={story.title}
-                type="button"
-                className={storyIndex === index ? 'dot active' : 'dot'}
-                aria-label={`Go to story ${storyIndex + 1}`}
-                onClick={() => setIndex(storyIndex)}
-              />
+function SpecSheet({ story }) {
+  if (story.marketplaces) {
+    return (
+      <aside className="spec">
+        <div className="spec-title">One inventory → three marketplaces</div>
+        <div className="flow">
+          <div className="flow-source">Inventory library</div>
+          <div className="flow-targets">
+            {story.marketplaces.map((market) => (
+              <div key={market}>{market}</div>
             ))}
           </div>
         </div>
+        <div className="tag-row">
+          {story.tags.map((tag) => (
+            <span className="tag" key={tag}>
+              {tag}
+            </span>
+          ))}
+        </div>
+      </aside>
+    );
+  }
+
+  const figures = story.spec || story.figures;
+  return (
+    <aside className="spec">
+      <div className="spec-title">Spec sheet</div>
+      <div className="spec-grid">
+        {figures.map((figure, index) => (
+          <div key={figure.label}>
+            <div className={`figure ${index === 0 ? 'accent' : ''}`}>{figure.value}</div>
+            <div className="figure-label">{figure.label}</div>
+          </div>
+        ))}
       </div>
-    </section>
+      <div className="tag-row">
+        {story.tags.map((tag) => (
+          <span className="tag" key={tag}>
+            {tag}
+          </span>
+        ))}
+      </div>
+    </aside>
+  );
+}
+
+export default function SuccessPage() {
+  const [filter, setFilter] = useState('All');
+  const visible = successStories.filter((story) => filter === 'All' || story.filter === filter);
+
+  return (
+    <>
+      <PageHero
+        eyebrow="Case studies"
+        title="Systems in production, not slideware."
+      >
+        <div className="chip-row" role="group" aria-label="Filter by discipline">
+          {['All', ...storyFilters].map((name) => (
+            <button
+              key={name}
+              type="button"
+              className={`chip ${filter === name ? 'active' : ''}`}
+              aria-pressed={filter === name}
+              onClick={() => setFilter(name)}
+            >
+              {name === 'All' ? `All · ${successStories.length}` : name}
+            </button>
+          ))}
+        </div>
+      </PageHero>
+
+      <section className="container section-bottom">
+        {visible.map((story) => (
+          <article key={story.id} id={story.id} className="case-row">
+            <div className="case-body">
+              <div className="mono-meta">
+                <span className="accent">{String(successStories.indexOf(story) + 1).padStart(2, '0')}</span> —{' '}
+                {story.label}
+              </div>
+              <h2>{story.title}</h2>
+              <p className="case-lead">{story.lead}</p>
+              <ul className="lettered">
+                {story.body.map((item, index) => (
+                  <li key={item}>
+                    <span>{String.fromCharCode(97 + index)}</span>
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <SpecSheet story={story} />
+          </article>
+        ))}
+      </section>
+
+      <CtaPanel title="Have a system that needs to reach production?" />
+    </>
   );
 }

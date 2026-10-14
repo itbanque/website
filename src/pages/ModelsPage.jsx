@@ -1,5 +1,10 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
-import { benchmarkMetrics, modelBenchmarks } from '../data/siteData';
+import { useMemo, useState } from 'react';
+import benchmarkData from '../data/modelBenchmarks.json';
+
+// Not routed: hidden until the benchmark data has an owner again (re-add the route in App.jsx).
+const { benchmarkMetrics, modelBenchmarks, lastUpdated: benchmarksUpdated } = benchmarkData;
+
+const defaultMetricKey = 'gpqa_diamond';
 
 function normalizeScore(score, metric) {
   if (typeof score !== 'number') {
@@ -24,282 +29,199 @@ function formatScore(score, metric) {
   }
 
   if (metric.format === 'decimal') {
+    if (Math.abs(score) >= 100) return score.toFixed(0);
+    if (Math.abs(score) >= 1) return score.toFixed(2);
     return score.toFixed(3);
   }
 
-  return `${score.toFixed(1)}%`;
+  return score.toFixed(1);
+}
+
+function unitLabel(metric) {
+  const direction = metric.higherIsBetter === false ? 'lower is better' : 'higher is better';
+  return metric.format === 'percent' ? `score %, ${direction}` : direction;
+}
+
+const categories = [...new Set(benchmarkMetrics.map((metric) => metric.category || 'General'))];
+const providers = [...new Set(modelBenchmarks.map((model) => model.provider))];
+
+function countReporting(metricKey) {
+  return modelBenchmarks.filter((model) => typeof model.scores[metricKey] === 'number').length;
 }
 
 export default function ModelsPage() {
-  const comparisonMetrics = benchmarkMetrics.filter((metric) => metric.category !== 'Cost & speed');
-  const [selectedModels, setSelectedModels] = useState(modelBenchmarks.map((model) => model.id));
-  const [activeCategory, setActiveCategory] = useState('all');
-  const [searchQuery, setSearchQuery] = useState('');
-  const [activeProvider, setActiveProvider] = useState('all');
-  const [maxVisibleModels, setMaxVisibleModels] = useState('12');
-  const [isModelMenuOpen, setIsModelMenuOpen] = useState(false);
-  const modelMenuRef = useRef(null);
+  const [metricKey, setMetricKey] = useState(defaultMetricKey);
+  const [provider, setProvider] = useState('All');
+  const [view, setView] = useState('chart');
 
-  const categories = [...new Set(comparisonMetrics.map((metric) => metric.category || 'General'))];
-  const providers = [...new Set(modelBenchmarks.map((model) => model.provider))];
-  const visibleMetrics =
-    activeCategory === 'all'
-      ? comparisonMetrics
-      : comparisonMetrics.filter((metric) => (metric.category || 'General') === activeCategory);
-  const searchableQuery = searchQuery.trim().toLowerCase();
+  const metric = benchmarkMetrics.find((item) => item.key === metricKey) || benchmarkMetrics[0];
+  const category = metric.category || 'General';
+  const categoryMetrics = benchmarkMetrics.filter((item) => (item.category || 'General') === category);
 
-  const filteredModelEntries = modelBenchmarks.filter((model) => {
-    const matchesProvider = activeProvider === 'all' || model.provider === activeProvider;
-    if (!matchesProvider) {
-      return false;
-    }
+  const ranked = useMemo(() => {
+    const direction = metric.higherIsBetter === false ? 1 : -1;
+    return modelBenchmarks
+      .filter((model) => typeof model.scores[metric.key] === 'number')
+      .map((model) => ({ ...model, score: model.scores[metric.key] }))
+      .sort((a, b) => direction * (a.score - b.score))
+      .map((model, index) => ({ ...model, rank: index + 1 }));
+  }, [metric]);
 
-    if (!searchableQuery) {
-      return true;
-    }
+  const rows = ranked.filter((model) => provider === 'All' || model.provider === provider);
+  const chartLabel = `${metric.label}: ${rows.map((row) => `${row.name} ${formatScore(row.score, metric)}`).join(', ')}`;
 
-    const token = `${model.name} ${model.provider}`.toLowerCase();
-    return token.includes(searchableQuery);
-  });
-
-  useEffect(() => {
-    if (selectedModels.length > 0) {
-      return;
-    }
-    setSelectedModels([modelBenchmarks[0].id]);
-  }, [selectedModels]);
-
-  useEffect(() => {
-    function handleClickOutside(event) {
-      if (modelMenuRef.current && !modelMenuRef.current.contains(event.target)) {
-        setIsModelMenuOpen(false);
-      }
-    }
-
-    function handleEscape(event) {
-      if (event.key === 'Escape') {
-        setIsModelMenuOpen(false);
-      }
-    }
-
-    document.addEventListener('mousedown', handleClickOutside);
-    document.addEventListener('keydown', handleEscape);
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-      document.removeEventListener('keydown', handleEscape);
-    };
-  }, []);
-
-  const selectedModelEntries = modelBenchmarks.filter((model) => selectedModels.includes(model.id));
-
-  const rankedSelectedModels = useMemo(() => {
-    return [...selectedModelEntries].sort((a, b) => {
-      const getAverage = (model) => {
-        const availableScores = visibleMetrics
-          .map((metric) => model.scores[metric.key])
-          .filter((score) => typeof score === 'number');
-
-        if (!availableScores.length) {
-          return -1;
-        }
-
-        const sum = availableScores.reduce((total, score) => total + score, 0);
-        return sum / availableScores.length;
-      };
-
-      return getAverage(b) - getAverage(a);
-    });
-  }, [selectedModelEntries, visibleMetrics]);
-
-  const modelsForChart = useMemo(() => {
-    if (maxVisibleModels === 'all') {
-      return rankedSelectedModels;
-    }
-
-    const limit = Number(maxVisibleModels);
-    return rankedSelectedModels.slice(0, limit);
-  }, [rankedSelectedModels, maxVisibleModels]);
-
-  const addFilteredModels = () => {
-    setSelectedModels((current) => [...new Set([...current, ...filteredModelEntries.map((model) => model.id)])]);
-  };
-
-  const toggleModel = (modelId) => {
-    setSelectedModels((current) => {
-      const isSelected = current.includes(modelId);
-      if (isSelected) {
-        if (current.length === 1) {
-          return current;
-        }
-        return current.filter((id) => id !== modelId);
-      }
-      return [...current, modelId];
-    });
-  };
-
-  const clearAllSelections = () => {
-    setSelectedModels([modelBenchmarks[0].id]);
-  };
-
-  const removeSelectedModel = (modelId) => {
-    setSelectedModels((current) => {
-      if (current.length === 1) {
-        return current;
-      }
-      return current.filter((id) => id !== modelId);
-    });
-  };
+  function selectCategory(name) {
+    const first = benchmarkMetrics.find((item) => (item.category || 'General') === name);
+    if (first) setMetricKey(first.key);
+  }
 
   return (
-    <section className="container section">
-      <div className="section-heading">
-        <h1>Model Comparison</h1>
-        <p>Interactive benchmark explorer with fast filtering for large model sets.</p>
-      </div>
-
-      <article className="panel model-comparison">
-        <div className="section-heading left">
-          <h2>Benchmark Explorer</h2>
-          <p>Use top dropdown controls to select models and keep charts focused.</p>
+    <>
+      <section className="page-hero container models-hero">
+        <div>
+          <div className="eyebrow">Tool</div>
+          <h1 className="display">Model benchmark explorer</h1>
+          <p className="lead">
+            Compare frontier models across coding, reasoning, tool use, multimodal and professional benchmarks — to
+            pick the right model for your product and workflow.
+          </p>
         </div>
-
-        <div className="top-selection-widget">
-          <input
-            type="text"
-            className="control-input"
-            placeholder="Search model name"
-            value={searchQuery}
-            onChange={(event) => setSearchQuery(event.target.value)}
-          />
-          <select
-            className="control-select"
-            value={activeProvider}
-            onChange={(event) => setActiveProvider(event.target.value)}
-          >
-            <option value="all">All providers</option>
-            {providers.map((provider) => (
-              <option key={provider} value={provider}>
-                {provider}
-              </option>
-            ))}
-          </select>
-          <div className="model-dropdown" ref={modelMenuRef}>
-            <button
-              type="button"
-              className="dropdown-toggle"
-              onClick={() => setIsModelMenuOpen((value) => !value)}
-              aria-expanded={isModelMenuOpen}
-            >
-              {selectedModels.length} models selected
-            </button>
-            {isModelMenuOpen ? (
-              <div className="dropdown-menu">
-                {filteredModelEntries.map((model) => {
-                  const isChecked = selectedModels.includes(model.id);
-
-                  return (
-                    <label key={model.id} className="dropdown-item">
-                      <input type="checkbox" checked={isChecked} onChange={() => toggleModel(model.id)} />
-                      <span>{model.name}</span>
-                      <small>{model.provider}</small>
-                    </label>
-                  );
-                })}
-              </div>
-            ) : null}
+        <dl className="stat-row">
+          <div>
+            <dt>Models</dt>
+            <dd>{modelBenchmarks.length}</dd>
           </div>
-          <button type="button" className="metric-chip" onClick={addFilteredModels}>
-            Select Visible
-          </button>
-          <button type="button" className="metric-chip" onClick={clearAllSelections}>
-            Clear to One
-          </button>
-        </div>
-
-        <div className="viewer-panel">
-          <div className="viewer-toolbar">
-            <p className="picker-help">
-              {selectedModels.length} selected, showing {modelsForChart.length} in charts.
-            </p>
-            <label className="limit-label">
-              Show
-              <select
-                className="control-select slim"
-                value={maxVisibleModels}
-                onChange={(event) => setMaxVisibleModels(event.target.value)}
-              >
-                <option value="8">Top 8</option>
-                <option value="12">Top 12</option>
-                <option value="20">Top 20</option>
-                <option value="all">All</option>
-              </select>
-            </label>
+          <div>
+            <dt>Benchmarks</dt>
+            <dd>{benchmarkMetrics.length}</dd>
           </div>
-
-          <div className="selected-pills">
-            {selectedModelEntries.map((model) => (
-              <button key={model.id} type="button" className="selected-pill" onClick={() => removeSelectedModel(model.id)}>
-                <span className="legend-dot" style={{ background: model.color }} />
-                {model.name}
-                <span className="pill-remove">x</span>
-              </button>
-            ))}
+          <div>
+            <dt>Updated</dt>
+            <dd>{benchmarksUpdated}</dd>
           </div>
+        </dl>
+      </section>
 
-          <div className="metric-filter">
-            <button
-              type="button"
-              className={`metric-chip ${activeCategory === 'all' ? 'active' : ''}`}
-              onClick={() => setActiveCategory('all')}
-            >
-              All Categories
-            </button>
-            {categories.map((category) => (
+      <section className="container section-bottom explorer">
+        <div className="bench-picker">
+          <div className="picker-label">Category</div>
+          <div className="chip-row compact" role="group" aria-label="Benchmark category">
+            {categories.map((name) => (
               <button
-                key={category}
+                key={name}
                 type="button"
-                className={`metric-chip ${activeCategory === category ? 'active' : ''}`}
-                onClick={() => setActiveCategory(category)}
+                className={`chip chip-sm ${name === category ? 'active' : ''}`}
+                aria-pressed={name === category}
+                onClick={() => selectCategory(name)}
               >
-                {category}
+                {name}
+              </button>
+            ))}
+          </div>
+          <div className="picker-label">Benchmark</div>
+          <div className="bench-list">
+            {categoryMetrics.map((item) => (
+              <button
+                key={item.key}
+                type="button"
+                className={`bench-btn ${item.key === metric.key ? 'active' : ''}`}
+                aria-pressed={item.key === metric.key}
+                onClick={() => setMetricKey(item.key)}
+              >
+                <span className="bench-name">{item.label}</span>
+                <span className="bench-count">{countReporting(item.key)} models</span>
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <div className="card chart-panel">
+          <div className="chart-head">
+            <div className="chart-heading">
+              <div className="mono-meta">
+                {category} · {unitLabel(metric)}
+              </div>
+              <h2>{metric.label}</h2>
+              {metric.description ? <p className="muted">{metric.description}</p> : null}
+            </div>
+            <div className="segmented" role="group" aria-label="View">
+              <button type="button" className={view === 'chart' ? 'active' : ''} aria-pressed={view === 'chart'} onClick={() => setView('chart')}>
+                Chart
+              </button>
+              <button type="button" className={view === 'table' ? 'active' : ''} aria-pressed={view === 'table'} onClick={() => setView('table')}>
+                Table
+              </button>
+            </div>
+          </div>
+
+          <div className="chip-row compact provider-row" role="group" aria-label="Filter by provider">
+            {['All', ...providers].map((name) => (
+              <button
+                key={name}
+                type="button"
+                className={`chip chip-sm ${provider === name ? 'active' : ''}`}
+                aria-pressed={provider === name}
+                onClick={() => setProvider(name)}
+              >
+                {name}
               </button>
             ))}
           </div>
 
-          <div className="benchmark-chart" role="img" aria-label="Model benchmark comparison chart">
-            {visibleMetrics.map((metric) => (
-              <div key={metric.key} className="chart-row">
-                <p>
-                  {metric.label}
-                  {metric.higherIsBetter === false ? ' (lower is better)' : ''}
-                </p>
-                {metric.description ? <p className="metric-description">{metric.description}</p> : null}
-                <div className="chart-bars">
-                  {modelsForChart
-                    .map((model) => {
-                      const score = model.scores[metric.key];
-                      const width = normalizeScore(score, metric);
-                      return { model, score, width };
-                    })
-                    .sort((a, b) => b.width - a.width)
-                    .map(({ model, score, width }) => (
-                      <div key={`${model.id}-${metric.key}`} className="bar-item">
-                        <span className="bar-label">{model.name}</span>
-                        <div className="bar-track">
-                          <div
-                            className={`bar-fill ${typeof score === 'number' ? '' : 'no-score'}`}
-                            style={{ width: `${width}%`, background: model.color }}
-                          />
-                        </div>
-                        <span className="bar-value">{formatScore(score, metric)}</span>
-                      </div>
-                    ))}
+          {rows.length === 0 ? (
+            <p className="muted empty-note">No {provider} model reports this benchmark yet.</p>
+          ) : view === 'chart' ? (
+            <div className="rank-list" role="img" aria-label={chartLabel}>
+              {rows.map((row) => (
+                <div className="rank-row" key={row.id}>
+                  <span className="rank-num">{String(row.rank).padStart(2, '0')}</span>
+                  <span className="rank-model">
+                    <span className="rank-name">{row.name}</span>
+                    <span className="rank-provider">{row.provider}</span>
+                  </span>
+                  <span className="bar-track">
+                    <span
+                      className={`bar-fill ${row.rank === 1 ? 'is-top' : ''}`}
+                      style={{ width: `${Math.max(normalizeScore(row.score, metric), 1)}%` }}
+                    />
+                  </span>
+                  <span className="rank-value">{formatScore(row.score, metric)}</span>
                 </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          ) : (
+            <div className="table-scroll">
+              <table className="data-table">
+                <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Model</th>
+                    <th scope="col">Provider</th>
+                    <th scope="col" className="num">
+                      Score
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {rows.map((row) => (
+                    <tr key={row.id}>
+                      <td className="mono-meta">{String(row.rank).padStart(2, '0')}</td>
+                      <td className="strong">{row.name}</td>
+                      <td className="muted">{row.provider}</td>
+                      <td className="num">{formatScore(row.score, metric)}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
+
+          <p className="chart-note">
+            Scores are vendor-reported or from public leaderboards; harnesses and settings differ between sources. Top
+            result marked in orange.
+          </p>
         </div>
-      </article>
-    </section>
+      </section>
+    </>
   );
 }

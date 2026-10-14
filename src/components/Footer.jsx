@@ -1,39 +1,38 @@
 import { Link } from 'react-router-dom';
+import { contactEmail, linkedInUrl } from '../data/siteData';
 
 export default function Footer() {
   return (
     <footer className="site-footer">
       <div className="container footer-grid">
-        <div>
-          <h3>Itbanque</h3>
-          <p>Building dependable data infrastructure for the next generation of AI systems.</p>
+        <div className="footer-brand">
+          <img src="/brand/logo-lockup-ink.png" alt="itbanque" width="130" height="28" />
+          <p>Dependable data infrastructure for the next generation of AI systems.</p>
         </div>
-        <div>
-          <h3>Quick Links</h3>
-          <div className="footer-links">
+        <div className="footer-cols">
+          <div className="footer-col">
+            <h3>Company</h3>
             <Link to="/services">Services</Link>
-            <Link to="/success">Success</Link>
-            <Link to="/research">Research</Link>
+            <Link to="/success">Work</Link>
             <Link to="/about">About</Link>
-            <Link to="/contact">Contact</Link>
+          </div>
+          <div className="footer-col">
+            <h3>Resources</h3>
+            <Link to="/research">Research</Link>
+            <Link to="/privacy">Privacy policy</Link>
+          </div>
+          <div className="footer-col">
+            <h3>Contact</h3>
+            <a href={`mailto:${contactEmail}`}>{contactEmail}</a>
+            <a href={linkedInUrl} target="_blank" rel="noreferrer">
+              LinkedIn
+            </a>
           </div>
         </div>
-        <div>
-          <h3>Contact</h3>
-          <p>
-            Email: <a href="mailto:contact@itbanque.com">contact@itbanque.com</a>
-          </p>
-          <p>
-            LinkedIn:{' '}
-            <a href="https://www.linkedin.com/company/it-banque/" target="_blank" rel="noreferrer">
-              it-banque
-            </a>
-          </p>
-        </div>
       </div>
-      <div className="footer-bottom">
-        <span>© 2026 Itbanque. All rights reserved.</span>
-        <Link to="/privacy">Privacy Policy</Link>
+      <div className="container footer-bottom">
+        <span>© 2026 itbanque. All rights reserved.</span>
+        <span>itbanque.com</span>
       </div>
     </footer>
   );

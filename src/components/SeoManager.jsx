@@ -1,15 +1,15 @@
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 
-const siteName = 'Itbanque';
+const siteName = 'itbanque';
 const siteUrl = 'https://www.itbanque.com';
-const defaultImage = `${siteUrl}/assets/IT.png`;
+const defaultImage = `${siteUrl}/brand/og-image.png`;
 
 const routeSeo = {
   '/': {
     title: 'Enterprise AI Infrastructure',
     description:
-      'Itbanque builds enterprise-grade data infrastructure, model systems, and AI software for measurable outcomes.',
+      'itbanque builds enterprise-grade data infrastructure, model systems, and AI software for measurable outcomes.',
     robots: 'index,follow'
   },
   '/services': {
@@ -19,33 +19,28 @@ const routeSeo = {
     robots: 'index,follow'
   },
   '/success': {
-    title: 'Success Stories',
+    title: 'Case Studies',
     description: 'Selected case studies and real delivery outcomes from multi-domain AI programs.',
     robots: 'index,follow'
   },
-  '/models': {
-    title: 'LLM Model Comparison',
-    description: 'Compare LLM benchmark scores across coding, math, reasoning, multilingual, and instruction tasks.',
-    robots: 'noindex,nofollow'
-  },
   '/research': {
-    title: 'Research and Benchmarks',
-    description: 'Applied AI research publications and benchmark-based model capability comparisons.',
+    title: 'Research',
+    description: 'Applied AI research publications from itbanque.',
     robots: 'index,follow'
   },
   '/about': {
-    title: 'About Itbanque',
-    description: 'Learn about Itbanque mission, team, values, and approach to enterprise AI infrastructure.',
+    title: 'About itbanque',
+    description: 'Learn about itbanque mission, team, values, and approach to enterprise AI infrastructure.',
     robots: 'index,follow'
   },
   '/contact': {
     title: 'Contact',
-    description: 'Contact Itbanque for AI data pipelines, model optimization, and enterprise AI software services.',
+    description: 'Contact itbanque for AI data pipelines, model optimization, and enterprise AI software services.',
     robots: 'index,follow'
   },
   '/privacy': {
     title: 'Privacy Policy',
-    description: 'Read Itbanque privacy policy and data handling practices.',
+    description: 'Read itbanque privacy policy and data handling practices.',
     robots: 'index,follow'
   }
 };

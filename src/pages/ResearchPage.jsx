@@ -1,44 +1,57 @@
 import { useState } from 'react';
+import { PageHero } from '../components/ui';
 import { researchPapers } from '../data/siteData';
 
 export default function ResearchPage() {
   const [openBib, setOpenBib] = useState(null);
+  const [copied, setCopied] = useState(null);
+
+  async function copyBibtex(paper) {
+    try {
+      await navigator.clipboard.writeText(paper.bibtex);
+      setCopied(paper.title);
+      window.setTimeout(() => setCopied(null), 2000);
+    } catch {
+      setOpenBib(paper.title);
+    }
+  }
 
   return (
-    <section className="container section">
-      <div className="section-heading">
-        <h1>Research</h1>
-        <p>Applied publications in speech systems, data-centric AI, and multimodal workflows.</p>
-      </div>
+    <>
+      <PageHero eyebrow="Research" title="We publish what we learn.">
+        <p className="lead">Applied publications in speech systems, data-centric AI and multimodal workflows.</p>
+      </PageHero>
 
-      <div className="stack">
+      <section className="container section-bottom research-list">
         {researchPapers.map((paper) => {
           const isOpen = openBib === paper.title;
 
           return (
-            <article key={paper.title} className="panel paper-panel">
-              <h2>{paper.title}</h2>
-              <p className="paper-meta">
-                {paper.author} | {paper.published}
-              </p>
+            <article key={paper.title} className="card tool-card">
+              <div className="tag-line">
+                <span className="tag">Paper</span>
+                <span>
+                  {paper.published} · {paper.author}
+                </span>
+              </div>
+              <h2 className="card-title">{paper.title}</h2>
               <p>{paper.summary}</p>
-              <div className="paper-actions">
-                <a className="button" href={paper.pdf} target="_blank" rel="noreferrer">
-                  View PDF
+              <div className="button-row">
+                <a className="btn btn-primary" href={paper.pdf} target="_blank" rel="noreferrer">
+                  Read PDF
                 </a>
-                <button
-                  type="button"
-                  className="button button-secondary"
-                  onClick={() => setOpenBib(isOpen ? null : paper.title)}
-                >
+                <button type="button" className="btn btn-ghost" onClick={() => copyBibtex(paper)}>
+                  {copied === paper.title ? 'Copied' : 'Copy BibTeX'}
+                </button>
+                <button type="button" className="btn btn-text" onClick={() => setOpenBib(isOpen ? null : paper.title)} aria-expanded={isOpen}>
                   {isOpen ? 'Hide BibTeX' : 'Show BibTeX'}
                 </button>
               </div>
-              {isOpen ? <pre>{paper.bibtex}</pre> : null}
+              {isOpen ? <pre className="code-block">{paper.bibtex}</pre> : null}
             </article>
           );
         })}
-      </div>
-    </section>
+      </section>
+    </>
   );
 }
