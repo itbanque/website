@@ -1,6 +1,8 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { PageHero } from '../components/ui';
 import { researchPapers } from '../data/siteData';
+import { paperPath } from '../seo';
 
 export default function ResearchPage() {
   const [openBib, setOpenBib] = useState(null);
@@ -34,7 +36,9 @@ export default function ResearchPage() {
                   {paper.published} · {paper.author}
                 </span>
               </div>
-              <h2 className="card-title">{paper.title}</h2>
+              <h2 className="card-title">
+                <Link to={paperPath(paper)}>{paper.title}</Link>
+              </h2>
               <p>{paper.summary}</p>
               <div className="button-row">
                 <a className="btn btn-primary" href={paper.pdf} target="_blank" rel="noreferrer">

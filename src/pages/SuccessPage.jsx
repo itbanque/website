@@ -1,53 +1,9 @@
 import { useState } from 'react';
-import { CtaPanel, PageHero } from '../components/ui';
+import { Link } from 'react-router-dom';
+import SpecSheet from '../components/SpecSheet';
+import { ArrowIcon, CtaPanel, PageHero } from '../components/ui';
 import { storyFilters, successStories } from '../data/siteData';
-
-function SpecSheet({ story }) {
-  if (story.marketplaces) {
-    return (
-      <aside className="spec">
-        <div className="spec-title">One inventory → three marketplaces</div>
-        <div className="flow">
-          <div className="flow-source">Inventory library</div>
-          <div className="flow-targets">
-            {story.marketplaces.map((market) => (
-              <div key={market}>{market}</div>
-            ))}
-          </div>
-        </div>
-        <div className="tag-row">
-          {story.tags.map((tag) => (
-            <span className="tag" key={tag}>
-              {tag}
-            </span>
-          ))}
-        </div>
-      </aside>
-    );
-  }
-
-  const figures = story.spec || story.figures;
-  return (
-    <aside className="spec">
-      <div className="spec-title">Spec sheet</div>
-      <div className="spec-grid">
-        {figures.map((figure, index) => (
-          <div key={figure.label}>
-            <div className={`figure ${index === 0 ? 'accent' : ''}`}>{figure.value}</div>
-            <div className="figure-label">{figure.label}</div>
-          </div>
-        ))}
-      </div>
-      <div className="tag-row">
-        {story.tags.map((tag) => (
-          <span className="tag" key={tag}>
-            {tag}
-          </span>
-        ))}
-      </div>
-    </aside>
-  );
-}
+import { caseStudyPath } from '../seo';
 
 export default function SuccessPage() {
   const [filter, setFilter] = useState('All');
@@ -82,7 +38,9 @@ export default function SuccessPage() {
                 <span className="accent">{String(successStories.indexOf(story) + 1).padStart(2, '0')}</span> —{' '}
                 {story.label}
               </div>
-              <h2>{story.title}</h2>
+              <h2>
+                <Link to={caseStudyPath(story)}>{story.title}</Link>
+              </h2>
               <p className="case-lead">{story.lead}</p>
               <ul className="lettered">
                 {story.body.map((item, index) => (
@@ -92,6 +50,9 @@ export default function SuccessPage() {
                   </li>
                 ))}
               </ul>
+              <Link className="text-link" to={caseStudyPath(story)}>
+                Read the case study <ArrowIcon />
+              </Link>
             </div>
             <SpecSheet story={story} />
           </article>

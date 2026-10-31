@@ -1,49 +1,6 @@
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-
-const siteName = 'itbanque';
-const siteUrl = 'https://www.itbanque.com';
-const defaultImage = `${siteUrl}/brand/og-image.png`;
-
-const routeSeo = {
-  '/': {
-    title: 'Enterprise AI Infrastructure',
-    description:
-      'itbanque builds enterprise-grade data infrastructure, model systems, and AI software for measurable outcomes.',
-    robots: 'index,follow'
-  },
-  '/services': {
-    title: 'AI Services',
-    description:
-      'End-to-end AI delivery across data pipelines, model development, fine-tuning, evaluation, and software integration.',
-    robots: 'index,follow'
-  },
-  '/success': {
-    title: 'Case Studies',
-    description: 'Selected case studies and real delivery outcomes from multi-domain AI programs.',
-    robots: 'index,follow'
-  },
-  '/research': {
-    title: 'Research',
-    description: 'Applied AI research publications from itbanque.',
-    robots: 'index,follow'
-  },
-  '/about': {
-    title: 'About itbanque',
-    description: 'Learn about itbanque mission, team, values, and approach to enterprise AI infrastructure.',
-    robots: 'index,follow'
-  },
-  '/contact': {
-    title: 'Contact',
-    description: 'Contact itbanque for AI data pipelines, model optimization, and enterprise AI software services.',
-    robots: 'index,follow'
-  },
-  '/privacy': {
-    title: 'Privacy Policy',
-    description: 'Read itbanque privacy policy and data handling practices.',
-    robots: 'index,follow'
-  }
-};
+import { getSeo, siteName } from '../seo';
 
 function upsertMeta(name, content, useProperty = false) {
   const selector = useProperty ? `meta[property="${name}"]` : `meta[name="${name}"]`;
@@ -64,6 +21,10 @@ function upsertMeta(name, content, useProperty = false) {
 
 function upsertCanonical(url) {
   let element = document.head.querySelector('link[rel="canonical"]');
+  if (!url) {
+    element?.remove();
+    return;
+  }
   if (!element) {
     element = document.createElement('link');
     element.setAttribute('rel', 'canonical');
@@ -72,31 +33,51 @@ function upsertCanonical(url) {
   element.setAttribute('href', url);
 }
 
+// Page-specific tags carry data-seo so they can be swapped wholesale on navigation.
+function replacePageTags(seo) {
+  document.head.querySelectorAll('[data-seo]').forEach((element) => element.remove());
+
+  seo.meta.forEach(([name, content]) => {
+    const element = document.createElement('meta');
+    element.setAttribute('name', name);
+    element.setAttribute('content', content);
+    element.setAttribute('data-seo', '');
+    document.head.appendChild(element);
+  });
+
+  seo.jsonLd.forEach((data) => {
+    const element = document.createElement('script');
+    element.type = 'application/ld+json';
+    element.setAttribute('data-seo', '');
+    element.textContent = JSON.stringify(data);
+    document.head.appendChild(element);
+  });
+}
+
 export default function SeoManager() {
   const location = useLocation();
 
   useEffect(() => {
-    const current = routeSeo[location.pathname] || routeSeo['/'];
-    const title = `${current.title} | ${siteName}`;
-    const url = `${siteUrl}${location.pathname}`;
+    const seo = getSeo(location.pathname);
 
-    document.title = title;
-    upsertMeta('description', current.description);
-    upsertMeta('robots', current.robots || 'index,follow');
+    document.title = seo.title;
+    upsertMeta('description', seo.description);
+    upsertMeta('robots', seo.robots);
 
-    upsertMeta('og:type', 'website', true);
+    upsertMeta('og:type', seo.type, true);
     upsertMeta('og:site_name', siteName, true);
-    upsertMeta('og:title', title, true);
-    upsertMeta('og:description', current.description, true);
-    upsertMeta('og:url', url, true);
-    upsertMeta('og:image', defaultImage, true);
+    upsertMeta('og:title', seo.title, true);
+    upsertMeta('og:description', seo.description, true);
+    upsertMeta('og:url', seo.url || window.location.href, true);
+    upsertMeta('og:image', seo.image, true);
 
     upsertMeta('twitter:card', 'summary_large_image');
-    upsertMeta('twitter:title', title);
-    upsertMeta('twitter:description', current.description);
-    upsertMeta('twitter:image', defaultImage);
+    upsertMeta('twitter:title', seo.title);
+    upsertMeta('twitter:description', seo.description);
+    upsertMeta('twitter:image', seo.image);
 
-    upsertCanonical(url);
+    upsertCanonical(seo.url);
+    replacePageTags(seo);
   }, [location.pathname]);
 
   return null;

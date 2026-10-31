@@ -6,7 +6,7 @@ export default function Footer() {
     <footer className="site-footer">
       <div className="container footer-grid">
         <div className="footer-brand">
-          <img src="/brand/logo-lockup-ink.png" alt="itbanque" width="130" height="28" />
+          <img src="/brand/logo-lockup-ink.webp" alt="itbanque" width="140" height="28" loading="lazy" />
           <p>Dependable data infrastructure for the next generation of AI systems.</p>
         </div>
         <div className="footer-cols">

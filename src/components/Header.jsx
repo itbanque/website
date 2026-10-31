@@ -14,7 +14,7 @@ export default function Header() {
     <header className="site-header">
       <div className="container header-row">
         <Link to="/" className="brand" aria-label="itbanque home">
-          <img src="/brand/logo-lockup-ink.png" alt="itbanque" width="140" height="30" />
+          <img src="/brand/logo-lockup-ink.webp" alt="itbanque" width="151" height="30" />
         </Link>
 
         <nav className="desktop-nav" aria-label="Main navigation">

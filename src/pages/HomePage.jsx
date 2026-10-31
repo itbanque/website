@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { ArrowIcon, CtaPanel, Eyebrow, Icon } from '../components/ui';
 import { domains, processSteps, researchPapers, serviceCards, successStories } from '../data/siteData';
+import { caseStudyPath, paperPath } from '../seo';
 
 export default function HomePage() {
   const paper = researchPapers[0];
@@ -105,7 +106,7 @@ export default function HomePage() {
           </div>
           <div className="case-grid">
             {successStories.map((story) => (
-              <Link key={story.id} className="card case-card" to={`/success#${story.id}`}>
+              <Link key={story.id} className="card case-card" to={caseStudyPath(story)}>
                 <div className="mono-meta">{story.label}</div>
                 <h3>{story.cardTitle}</h3>
                 <p>{story.summary}</p>
@@ -137,7 +138,9 @@ export default function HomePage() {
                 {paper.published} · {paper.author}
               </span>
             </div>
-            <h3>{paper.title}</h3>
+            <h3>
+              <Link to={paperPath(paper)}>{paper.title}</Link>
+            </h3>
             <p>{paper.summary}</p>
             <div className="button-row">
               <a className="btn btn-primary" href={paper.pdf} target="_blank" rel="noreferrer">

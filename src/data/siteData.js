@@ -153,10 +153,18 @@ export const storyFilters = ['Vision', 'Automation', 'Speech'];
 export const researchPapers = [
   {
     title: 'Adapting Whisper for Japanese-to-Chinese Speech Translation on Lightweight Models',
+    slug: 'whisper-japanese-to-chinese-speech-translation',
     author: 'Jian Feng',
+    authors: ['Jian Feng'],
     published: 'July 2025',
+    date: '2025-07',
     summary:
       'Evaluates lightweight fine-tuning strategies that improve Japanese-to-Chinese speech translation using curated subtitle-aligned corpora.',
+    abstract: [
+      'This paper investigates the potential of Whisper’s lightweight models for direct translation between non-English language pairs, with a focus on Japanese-to-Chinese speech translation. While Whisper supports multilingual transcription and English-targeted translation out of the box, it lacks support for other translation directions.',
+      'We fine-tune the base and tiny variants of Whisper using a high-quality dataset of Japanese movies, TV shows, and anime aligned with simplified Chinese subtitles. Our results show that the base model achieves promising BLEU scores on real-world data, while the tiny model struggles to produce semantically complete outputs.',
+      'These findings suggest that Whisper’s architecture can be adapted for non-English translation, though model size remains a critical factor. This study also highlights the potential for deploying compact ASR-translation models in GPU-limited or edge computing environments, and offers insights into balancing accuracy and efficiency for multilingual translation in constrained settings.'
+    ],
     pdf: '/assets/papers/Adapting Whisper for Japanese-to-Chinese Speech Translation on Lightweight Models.pdf',
     bibtex: `@misc{feng2025whisper,\n  title={Adapting Whisper for Japanese-to-Chinese Speech Translation on Lightweight Models},\n  author={Jian Feng},\n  year={2025},\n  url={https://www.itbanque.com/assets/papers/Adapting Whisper for Japanese-to-Chinese Speech Translation on Lightweight Models.pdf}\n}`
   }

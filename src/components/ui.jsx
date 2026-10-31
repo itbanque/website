@@ -79,7 +79,7 @@ export function CtaPanel({ title = 'Let’s build intelligent systems together.'
   return (
     <section className="container section-bottom">
       <div className="cta-panel">
-        <img className="cta-mark" src="/brand/mark-glow.png" alt="" aria-hidden="true" />
+        <img className="cta-mark" src="/brand/mark-glow.webp" alt="" aria-hidden="true" width="419" height="400" loading="lazy" />
         <div className="cta-copy">
           <div className="eyebrow-pill">
             <span className="dot" />
