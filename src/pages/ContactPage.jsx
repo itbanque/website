@@ -1,18 +1,13 @@
 import { useState } from 'react';
 import { ArrowIcon } from '../components/ui';
 import { contactEmail, linkedInUrl } from '../data/siteData';
-
-const helpAreas = [
-  'Data collection and labeling programs',
-  'Model training, optimization and evaluation',
-  'Custom AI software and systems integration',
-  'Enterprise AI strategy and execution'
-];
-
-const needs = ['Data', 'Models', 'Software', 'Strategy'];
+import { useLocale } from '../i18n';
 
 export default function ContactPage() {
+  const { t } = useLocale();
+  const c = t.contact;
   const [form, setForm] = useState({ name: '', company: '', email: '', message: '' });
+  // Indexes into c.needs, so the selection survives a language switch.
   const [selected, setSelected] = useState([]);
   const [sent, setSent] = useState(false);
 
@@ -27,12 +22,12 @@ export default function ContactPage() {
   // The site is static, so the form composes an email in the visitor's mail app.
   function handleSubmit(event) {
     event.preventDefault();
-    const subject = `Project inquiry${form.company ? ` — ${form.company}` : ''}`;
+    const subject = `${c.mailSubject}${form.company ? ` — ${form.company}` : ''}`;
     const body = [
-      `Name: ${form.name}`,
-      `Company: ${form.company}`,
-      `Email: ${form.email}`,
-      `Interested in: ${selected.join(', ') || '—'}`,
+      `${c.name}: ${form.name}`,
+      `${c.company}: ${form.company}`,
+      `${c.email}: ${form.email}`,
+      `${c.mailInterested}: ${selected.map((index) => c.needs[index]).join(t.common.listSeparator) || '—'}`,
       '',
       form.message
     ].join('\n');
@@ -44,17 +39,12 @@ export default function ContactPage() {
     <section className="contact-wrap">
       <div className="container contact-grid">
         <div className="contact-info">
-          <div className="eyebrow">Contact</div>
-          <h1 className="display">
-            Let’s build intelligent systems together.
-          </h1>
-          <p className="lead">
-            Whether you need data pipelines, model fine-tuning or AI software integration, we’ll design the right
-            delivery path for your team.
-          </p>
+          <div className="eyebrow">{c.eyebrow}</div>
+          <h1 className="display">{c.title}</h1>
+          <p className="lead">{c.lead}</p>
 
           <ul className="numbered-list">
-            {helpAreas.map((area, index) => (
+            {c.helpAreas.map((area, index) => (
               <li key={area}>
                 <span>{String(index + 1).padStart(2, '0')}</span>
                 {area}
@@ -64,7 +54,7 @@ export default function ContactPage() {
 
           <dl className="contact-facts">
             <div>
-              <dt>Email</dt>
+              <dt>{c.email}</dt>
               <dd>
                 <a href={`mailto:${contactEmail}`}>{contactEmail}</a>
               </dd>
@@ -78,56 +68,54 @@ export default function ContactPage() {
               </dd>
             </div>
             <div>
-              <dt>Response</dt>
-              <dd>24–48 hours</dd>
+              <dt>{c.response}</dt>
+              <dd>{c.responseTime}</dd>
             </div>
           </dl>
         </div>
 
         <form className="card form-card" onSubmit={handleSubmit}>
-          <h2 className="card-title">Tell us about your project</h2>
+          <h2 className="card-title">{c.formTitle}</h2>
           <div className="field-row">
             <label className="field">
-              Name
+              {c.name}
               <input type="text" name="name" autoComplete="name" required value={form.name} onChange={update('name')} />
             </label>
             <label className="field">
-              Company
+              {c.company}
               <input type="text" name="company" autoComplete="organization" value={form.company} onChange={update('company')} />
             </label>
           </div>
           <label className="field">
-            Work email
+            {c.workEmail}
             <input type="email" name="email" autoComplete="email" required value={form.email} onChange={update('email')} />
           </label>
           <fieldset className="need-set">
-            <legend>What do you need?</legend>
+            <legend>{c.needLegend}</legend>
             <div className="chip-row compact">
-              {needs.map((need) => (
-                <label key={need} className={`check-chip ${selected.includes(need) ? 'active' : ''}`}>
-                  <input type="checkbox" checked={selected.includes(need)} onChange={() => toggleNeed(need)} />
+              {c.needs.map((need, index) => (
+                <label key={need} className={`check-chip ${selected.includes(index) ? 'active' : ''}`}>
+                  <input type="checkbox" checked={selected.includes(index)} onChange={() => toggleNeed(index)} />
                   {need}
                 </label>
               ))}
             </div>
           </fieldset>
           <label className="field">
-            Project details
+            {c.details}
             <textarea
               name="message"
               rows="5"
-              placeholder="Goals, timeline, and the data or systems you already have."
+              placeholder={c.placeholder}
               value={form.message}
               onChange={update('message')}
             />
           </label>
           <button className="btn btn-primary btn-lg btn-block" type="submit">
-            Send message <ArrowIcon />
+            {c.send} <ArrowIcon />
           </button>
           <p className="form-note" role="status">
-            {sent
-              ? `Your email app should open with the message ready. If it didn’t, write to ${contactEmail}.`
-              : 'Opens your email app with the details filled in.'}
+            {sent ? c.sentNote(contactEmail) : c.note}
           </p>
         </form>
       </div>

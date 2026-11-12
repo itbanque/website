@@ -1,9 +1,11 @@
-import { Link } from 'react-router-dom';
 import { ArrowIcon, CtaPanel, Eyebrow, Icon } from '../components/ui';
-import { domains, processSteps, researchPapers, serviceCards, successStories } from '../data/siteData';
+import { Link, useLocale } from '../i18n';
 import { caseStudyPath, paperPath } from '../seo';
 
 export default function HomePage() {
+  const { t, data } = useLocale();
+  const { domains, processSteps, researchPapers, serviceCards, successStories } = data;
+  const h = t.home;
   const paper = researchPapers[0];
   const layers = [...serviceCards].reverse();
 
@@ -14,26 +16,21 @@ export default function HomePage() {
           <div className="hero-copy">
             <div className="eyebrow-pill">
               <span className="dot" />
-              Enterprise AI infrastructure
+              {h.pill}
             </div>
-            <h1 className="display">
-              Data, models and software — built to reach production.
-            </h1>
-            <p className="lead">
-              itbanque designs and operates production-grade data, model and software systems that move from
-              prototype to reliable business value.
-            </p>
+            <h1 className="display">{h.title}</h1>
+            <p className="lead">{h.lead}</p>
             <div className="hero-actions">
               <Link className="btn btn-primary btn-lg" to="/contact">
-                Start a conversation <ArrowIcon />
+                {h.primaryCta} <ArrowIcon />
               </Link>
               <Link className="btn btn-ghost btn-lg" to="/success">
-                See our work
+                {h.secondaryCta}
               </Link>
             </div>
           </div>
 
-          <div className="layer-stack" aria-label="Service layers">
+          <div className="layer-stack" aria-label={h.layersLabel}>
             {layers.map((layer, position) => (
               <div key={layer.key} className={`layer layer-${position} ${layer.key === 'data' ? 'layer-primary' : ''}`}>
                 <span className="layer-index">{layer.index}</span>
@@ -47,7 +44,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="band" aria-label="Domains we work in">
+      <section className="band" aria-label={t.common.domainsLabel}>
         <div className="container domain-strip">
           {domains.map((domain) => (
             <div className="domain" key={domain.key}>
@@ -64,12 +61,10 @@ export default function HomePage() {
       <section className="container section">
         <div className="section-head row">
           <div>
-            <Eyebrow>What we do</Eyebrow>
-            <h2 className="section-title">Three layers. One delivery team.</h2>
+            <Eyebrow>{h.servicesEyebrow}</Eyebrow>
+            <h2 className="section-title">{h.servicesTitle}</h2>
           </div>
-          <p className="section-intro">
-            Integrated service layers that support modern AI delivery — engage one, or let us carry the whole stack.
-          </p>
+          <p className="section-intro">{h.servicesIntro}</p>
         </div>
         <div className="card-grid">
           {serviceCards.map((card) => (
@@ -97,11 +92,11 @@ export default function HomePage() {
         <div className="container section">
           <div className="section-head row">
             <div>
-              <Eyebrow>Selected work</Eyebrow>
-              <h2 className="section-title">Shipped, measured, in use.</h2>
+              <Eyebrow>{h.workEyebrow}</Eyebrow>
+              <h2 className="section-title">{h.workTitle}</h2>
             </div>
             <Link className="text-link" to="/success">
-              All case studies <ArrowIcon />
+              {h.workLink} <ArrowIcon />
             </Link>
           </div>
           <div className="case-grid">
@@ -126,14 +121,14 @@ export default function HomePage() {
 
       <section className="container section process">
         <div className="process-intro">
-          <Eyebrow>Research</Eyebrow>
-          <h2 className="section-title">We publish what we learn.</h2>
-          <p className="muted">Applied work from our delivery programs, written up so others can build on it.</p>
+          <Eyebrow>{h.researchEyebrow}</Eyebrow>
+          <h2 className="section-title">{h.researchTitle}</h2>
+          <p className="muted">{h.researchIntro}</p>
         </div>
         <div className="research-feature">
           <article className="card tool-card">
             <div className="tag-line">
-              <span className="tag">Paper</span>
+              <span className="tag">{t.common.paperTag}</span>
               <span>
                 {paper.published} · {paper.author}
               </span>
@@ -144,10 +139,10 @@ export default function HomePage() {
             <p>{paper.summary}</p>
             <div className="button-row">
               <a className="btn btn-primary" href={paper.pdf} target="_blank" rel="noreferrer">
-                Read PDF
+                {t.common.readPdf}
               </a>
               <Link className="btn btn-ghost" to="/research">
-                All research
+                {h.allResearch}
               </Link>
             </div>
           </article>
@@ -157,17 +152,14 @@ export default function HomePage() {
       <section className="rule-top">
         <div className="container section process">
           <div className="process-intro">
-            <Eyebrow>How we work</Eyebrow>
-            <h2 className="section-title">Move forward, or fall behind.</h2>
-            <p className="muted">
-              Infrastructure isn’t the headline, but it decides whether AI progress lasts. Our team combines
-              infrastructure engineering, ML research, linguistics and product execution.
-            </p>
+            <Eyebrow>{h.processEyebrow}</Eyebrow>
+            <h2 className="section-title">{h.processTitle}</h2>
+            <p className="muted">{h.processIntro}</p>
           </div>
           <ol className="steps">
             {processSteps.map((step, index) => (
               <li key={step.title}>
-                <div className="mono-meta accent">Step {String(index + 1).padStart(2, '0')}</div>
+                <div className="mono-meta accent">{t.common.step(String(index + 1).padStart(2, '0'))}</div>
                 <h3>{step.title}</h3>
                 <p>{step.body}</p>
               </li>

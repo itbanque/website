@@ -1,5 +1,5 @@
-import { Link } from 'react-router-dom';
 import { contactEmail } from '../data/siteData';
+import { Link, useLocale } from '../i18n';
 
 export function ArrowIcon({ size = 16 }) {
   return (
@@ -75,7 +75,9 @@ export function PageHero({ eyebrow, title, children }) {
   );
 }
 
-export function CtaPanel({ title = 'Let’s build intelligent systems together.' }) {
+export function CtaPanel({ title }) {
+  const { t } = useLocale();
+
   return (
     <section className="container section-bottom">
       <div className="cta-panel">
@@ -83,13 +85,13 @@ export function CtaPanel({ title = 'Let’s build intelligent systems together.'
         <div className="cta-copy">
           <div className="eyebrow-pill">
             <span className="dot" />
-            Reply within 24–48 hours
+            {t.cta.reply}
           </div>
-          <h2>{title}</h2>
+          <h2>{title || t.cta.title}</h2>
         </div>
         <div className="cta-actions">
           <Link className="btn btn-primary btn-lg" to="/contact">
-            Start a project <ArrowIcon />
+            {t.common.startProject} <ArrowIcon />
           </Link>
           <a className="cta-email" href={`mailto:${contactEmail}`}>
             {contactEmail}

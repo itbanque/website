@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom';
 import Header from './Header';
 import Footer from './Footer';
 import SeoManager from './SeoManager';
+import { LocaleProvider, useLocale } from '../i18n';
 
 function ScrollManager() {
   const { pathname, hash } = useLocation();
@@ -21,14 +22,23 @@ function ScrollManager() {
   return null;
 }
 
-export default function Layout({ children }) {
+function Shell({ children }) {
+  const { locale } = useLocale();
   return (
-    <div className="app-shell">
+    <div className="app-shell" data-locale={locale}>
       <SeoManager />
       <ScrollManager />
       <Header />
       <main>{children}</main>
       <Footer />
     </div>
+  );
+}
+
+export default function Layout({ children }) {
+  return (
+    <LocaleProvider>
+      <Shell>{children}</Shell>
+    </LocaleProvider>
   );
 }

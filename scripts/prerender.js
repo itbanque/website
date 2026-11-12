@@ -25,6 +25,7 @@ function headTags(seo) {
     seo.url ? `<link rel="canonical" href="${escapeAttr(seo.url)}" />` : '',
     meta('property', 'og:type', seo.type),
     meta('property', 'og:site_name', siteName),
+    meta('property', 'og:locale', seo.ogLocale),
     meta('property', 'og:title', seo.title),
     meta('property', 'og:description', seo.description),
     seo.url ? meta('property', 'og:url', seo.url) : '',
@@ -33,6 +34,9 @@ function headTags(seo) {
     meta('name', 'twitter:title', seo.title),
     meta('name', 'twitter:description', seo.description),
     meta('name', 'twitter:image', seo.image),
+    ...seo.alternates.map(
+      ({ hreflang, href }) => `<link rel="alternate" hreflang="${hreflang}" href="${escapeAttr(href)}" data-seo />`
+    ),
     ...seo.meta.map(([name, content]) => `<meta name="${name}" content="${escapeAttr(content)}" data-seo />`),
     ...seo.jsonLd.map((data) => `<script type="application/ld+json" data-seo>${safeJson(data)}</script>`)
   ]
@@ -41,11 +45,17 @@ function headTags(seo) {
 }
 
 function page(path) {
-  if (!template.includes('<!--seo-head-->') || !template.includes('<div id="root"></div>')) {
-    throw new Error('dist/index.html is missing the <!--seo-head--> or #root placeholder');
+  if (
+    !template.includes('<html lang="en">') ||
+    !template.includes('<!--seo-head-->') ||
+    !template.includes('<div id="root"></div>')
+  ) {
+    throw new Error('dist/index.html is missing the <html lang>, <!--seo-head--> or #root placeholder');
   }
+  const seo = getSeo(path);
   return template
-    .replace('<!--seo-head-->', headTags(getSeo(path)))
+    .replace('<html lang="en">', `<html lang="${seo.lang}">`)
+    .replace('<!--seo-head-->', headTags(seo))
     .replace('<div id="root"></div>', `<div id="root">${render(path)}</div>`);
 }
 
@@ -57,10 +67,18 @@ for (const path of indexablePaths) {
 
 writeFileSync(join(dist, '404.html'), page('/404'));
 
-const urls = indexablePaths.map((path) => `  <url>\n    <loc>${siteUrl}${path}</loc>\n  </url>`).join('\n');
+// Each URL lists its translations so search engines pair the language versions.
+const urls = indexablePaths
+  .map((path) => {
+    const links = getSeo(path)
+      .alternates.map(({ hreflang, href }) => `    <xhtml:link rel="alternate" hreflang="${hreflang}" href="${href}" />`)
+      .join('\n');
+    return `  <url>\n    <loc>${siteUrl}${path}</loc>\n${links}\n  </url>`;
+  })
+  .join('\n');
 writeFileSync(
   join(dist, 'sitemap.xml'),
-  `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls}\n</urlset>\n`
+  `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n${urls}\n</urlset>\n`
 );
 
 rmSync(ssrDir, { recursive: true, force: true });

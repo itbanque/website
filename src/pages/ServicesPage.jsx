@@ -1,17 +1,15 @@
 import { CtaPanel, Eyebrow, Icon, PageHero } from '../components/ui';
-import { domains, processSteps, serviceCards } from '../data/siteData';
+import { useLocale } from '../i18n';
 
 export default function ServicesPage() {
+  const { t, data } = useLocale();
+  const { domains, processSteps, serviceCards } = data;
+  const s = t.services;
+
   return (
     <>
-      <PageHero
-        eyebrow="Services"
-        title="End-to-end delivery, from raw data to running software."
-      >
-        <p className="lead">
-          Data pipelines, model systems and software engineering — engage one layer, or let one team carry the
-          whole stack.
-        </p>
+      <PageHero eyebrow={s.eyebrow} title={s.title}>
+        <p className="lead">{s.lead}</p>
       </PageHero>
 
       <section className="container section-tight">
@@ -38,7 +36,7 @@ export default function ServicesPage() {
         </div>
       </section>
 
-      <section className="band" aria-label="Domains we work in">
+      <section className="band" aria-label={t.common.domainsLabel}>
         <div className="container domain-strip">
           {domains.map((domain) => (
             <div className="domain" key={domain.key}>
@@ -54,24 +52,20 @@ export default function ServicesPage() {
 
       <section className="container section process">
         <div className="process-intro">
-          <Eyebrow>How we work</Eyebrow>
-          <h2 className="section-title">Clear outcomes, measurable milestones.</h2>
-          <p className="muted">
-            We work hands-on with your team and provide documentation and delivery standards that support long-term
-            maintainability.
-          </p>
+          <Eyebrow>{s.processEyebrow}</Eyebrow>
+          <h2 className="section-title">{s.processTitle}</h2>
+          <p className="muted">{s.processIntro}</p>
         </div>
         <ol className="steps">
           {processSteps.map((step, index) => (
             <li key={step.title}>
-              <div className="mono-meta accent">Step {String(index + 1).padStart(2, '0')}</div>
+              <div className="mono-meta accent">{t.common.step(String(index + 1).padStart(2, '0'))}</div>
               <h3>{step.title}</h3>
               <p>{step.body}</p>
             </li>
           ))}
         </ol>
       </section>
-
 
       <CtaPanel />
     </>

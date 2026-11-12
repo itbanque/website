@@ -1,16 +1,19 @@
-import { Link } from 'react-router-dom';
+import { Link, useLocale } from '../i18n';
 import { PageHero } from '../components/ui';
 
 export default function NotFoundPage() {
+  const { t } = useLocale();
+  const n = t.notFound;
+
   return (
-    <PageHero eyebrow="404" title="Page not found.">
-      <p className="lead">The page you are looking for has moved or no longer exists.</p>
+    <PageHero eyebrow="404" title={n.title}>
+      <p className="lead">{n.lead}</p>
       <div className="button-row">
         <Link className="btn btn-primary" to="/">
-          Back to home
+          {n.home}
         </Link>
         <Link className="btn btn-ghost" to="/services">
-          Our services
+          {n.services}
         </Link>
       </div>
     </PageHero>

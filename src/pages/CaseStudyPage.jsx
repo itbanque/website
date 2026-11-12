@@ -1,12 +1,14 @@
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import SpecSheet from '../components/SpecSheet';
 import { CtaPanel, Eyebrow, PageHero } from '../components/ui';
-import { successStories } from '../data/siteData';
+import { Link, useLocale } from '../i18n';
 import { caseStudyPath } from '../seo';
 import NotFoundPage from './NotFoundPage';
 
 export default function CaseStudyPage() {
   const { id } = useParams();
+  const { t, data } = useLocale();
+  const { successStories } = data;
   const story = successStories.find((item) => item.id === id);
 
   if (!story) {
@@ -17,7 +19,7 @@ export default function CaseStudyPage() {
 
   return (
     <>
-      <PageHero eyebrow={<Link to="/success">← Case studies</Link>} title={story.title}>
+      <PageHero eyebrow={<Link to="/success">{t.caseStudy.back}</Link>} title={story.title}>
         <p className="lead">{story.lead}</p>
       </PageHero>
 
@@ -40,7 +42,7 @@ export default function CaseStudyPage() {
       </section>
 
       <section className="container section-bottom">
-        <Eyebrow>More case studies</Eyebrow>
+        <Eyebrow>{t.caseStudy.more}</Eyebrow>
         <ul className="rule-list">
           {others.map((item) => (
             <li key={item.id}>
@@ -50,7 +52,7 @@ export default function CaseStudyPage() {
         </ul>
       </section>
 
-      <CtaPanel title="Have a system that needs to reach production?" />
+      <CtaPanel title={t.cta.production} />
     </>
   );
 }

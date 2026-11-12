@@ -1,97 +1,66 @@
-import { linkedInUrl, researchPapers, serviceCards, successStories } from './data/siteData';
+import * as dataEn from './data/siteData';
+import * as dataZh from './data/siteData.zh';
+import stringsEn from './locales/en';
+import stringsZh from './locales/zh';
+import { htmlLang, locales, localizePath, ogLocale, splitLocale } from './locale';
 
 export const siteName = 'itbanque';
 export const siteUrl = 'https://www.itbanque.com';
 export const defaultImage = `${siteUrl}/brand/og-image.png`;
 
-const staticPages = {
-  '/': {
-    title: 'AI Data Labeling, Model Fine-Tuning & AI Software | itbanque',
-    description:
-      'itbanque delivers AI data collection and labeling, model fine-tuning and evaluation, and custom AI software — production-grade systems for speech, vision and language.'
-  },
-  '/services': {
-    title: 'AI Data, Model Fine-Tuning & Software Services | itbanque',
-    description:
-      'End-to-end AI services: data mining, collection and labeling; LLM, speech and vision model fine-tuning and evaluation; and AI software integration with observability.',
-    breadcrumb: 'Services'
-  },
-  '/success': {
-    title: 'AI Case Studies: Vision, Speech & Automation | itbanque',
-    description:
-      'Production AI case studies: sports action recognition, multilingual Whisper fine-tuning, marketplace automation for StockX, GOAT and Poizon, and AI browser automation.',
-    breadcrumb: 'Case studies'
-  },
-  '/research': {
-    title: 'Applied AI Research: Speech Translation & Whisper | itbanque',
-    description:
-      'Applied AI research from itbanque on speech recognition, speech translation and lightweight Whisper models, with PDFs and BibTeX citations.',
-    breadcrumb: 'Research'
-  },
-  '/about': {
-    title: 'About itbanque — Enterprise AI Engineering Team',
-    description:
-      'itbanque is an AI engineering team combining infrastructure engineering, ML research, linguistics and product delivery to take AI systems from prototype to production.',
-    breadcrumb: 'About'
-  },
-  '/contact': {
-    title: 'Contact itbanque — Start an AI Project',
-    description:
-      'Contact itbanque about data labeling programs, model training and fine-tuning, or custom AI software. We reply within 24–48 hours.',
-    breadcrumb: 'Contact'
-  },
-  '/privacy': {
-    title: 'Privacy Policy | itbanque',
-    description: 'How itbanque collects, uses and protects personal information submitted through this website.',
-    breadcrumb: 'Privacy policy'
-  }
-};
+const siteData = { en: dataEn, zh: dataZh };
+const strings = { en: stringsEn, zh: stringsZh };
 
-const notFound = {
-  title: 'Page Not Found | itbanque',
-  description: 'The page you are looking for does not exist.',
-  robots: 'noindex,follow'
-};
-
+// Locale-free paths; links add the locale prefix (see i18n.jsx).
 export const caseStudyPath = (story) => `/success/${story.id}`;
 export const paperPath = (paper) => `/research/${paper.slug}`;
 
-export const organization = {
-  '@context': 'https://schema.org',
-  '@type': 'Organization',
-  '@id': `${siteUrl}/#organization`,
-  name: siteName,
-  url: siteUrl,
-  logo: `${siteUrl}/brand/mark.png`,
-  description: staticPages['/'].description,
-  email: 'contact@itbanque.com',
-  sameAs: [linkedInUrl],
-  contactPoint: {
-    '@type': 'ContactPoint',
-    contactType: 'sales',
-    email: 'contact@itbanque.com',
-    url: `${siteUrl}/contact`
-  }
-};
+const pageUrl = (locale, path) => `${siteUrl}${localizePath(locale, path)}`;
 
-const website = {
-  '@context': 'https://schema.org',
-  '@type': 'WebSite',
-  '@id': `${siteUrl}/#website`,
-  name: siteName,
-  url: siteUrl,
-  publisher: { '@id': organization['@id'] }
-};
+function organization(locale) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    '@id': `${siteUrl}/#organization`,
+    name: siteName,
+    url: siteUrl,
+    logo: `${siteUrl}/brand/mark.png`,
+    description: strings[locale].seo.pages['/'].description,
+    email: dataEn.contactEmail,
+    sameAs: [dataEn.linkedInUrl],
+    contactPoint: {
+      '@type': 'ContactPoint',
+      contactType: 'sales',
+      email: dataEn.contactEmail,
+      url: pageUrl(locale, '/contact'),
+      availableLanguage: ['English', 'Chinese']
+    }
+  };
+}
 
-function breadcrumbs(trail) {
+const organizationRef = { '@id': `${siteUrl}/#organization` };
+
+function website(locale) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    '@id': `${siteUrl}/#website`,
+    name: siteName,
+    url: pageUrl(locale, '/'),
+    inLanguage: htmlLang[locale],
+    publisher: organizationRef
+  };
+}
+
+function breadcrumbs(locale, trail) {
   return {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
-    itemListElement: [{ name: 'Home', path: '/' }, ...trail].map((item, index) => ({
+    itemListElement: [{ name: strings[locale].seo.home, path: '/' }, ...trail].map((item, index) => ({
       '@type': 'ListItem',
       position: index + 1,
       name: item.name,
-      item: `${siteUrl}${item.path}`
+      item: pageUrl(locale, item.path)
     }))
   };
 }
@@ -100,10 +69,11 @@ function absolute(path) {
   return `${siteUrl}${encodeURI(path)}`;
 }
 
-function caseStudySeo(story) {
+function caseStudySeo(locale, story) {
   const path = caseStudyPath(story);
+  const t = strings[locale].seo;
   return {
-    title: `${story.title} | itbanque case study`,
+    title: t.caseStudyTitle(story.title),
     description: `${story.summary} ${story.body[1]}`,
     jsonLd: [
       {
@@ -112,23 +82,25 @@ function caseStudySeo(story) {
         headline: story.title,
         description: story.summary,
         keywords: story.tags.join(', '),
-        url: `${siteUrl}${path}`,
+        inLanguage: htmlLang[locale],
+        url: pageUrl(locale, path),
         image: defaultImage,
-        author: { '@id': organization['@id'] },
-        publisher: { '@id': organization['@id'] }
+        author: organizationRef,
+        publisher: organizationRef
       },
-      breadcrumbs([
-        { name: 'Case studies', path: '/success' },
+      breadcrumbs(locale, [
+        { name: t.caseStudies, path: '/success' },
         { name: story.cardTitle, path }
       ])
     ]
   };
 }
 
-function paperSeo(paper) {
+function paperSeo(locale, paper) {
   const path = paperPath(paper);
+  const t = strings[locale].seo;
   return {
-    title: `${paper.title} | itbanque research`,
+    title: t.paperTitle(paper.title),
     description: paper.summary,
     type: 'article',
     // Google Scholar reads Highwire Press tags.
@@ -137,7 +109,7 @@ function paperSeo(paper) {
       ...paper.authors.map((author) => ['citation_author', author]),
       ['citation_publication_date', paper.date.replaceAll('-', '/')],
       ['citation_pdf_url', absolute(paper.pdf)],
-      ['citation_abstract_html_url', `${siteUrl}${path}`]
+      ['citation_abstract_html_url', pageUrl(locale, path)]
     ],
     jsonLd: [
       {
@@ -148,61 +120,91 @@ function paperSeo(paper) {
         abstract: paper.abstract.join(' '),
         datePublished: paper.date,
         author: paper.authors.map((name) => ({ '@type': 'Person', name })),
-        publisher: { '@id': organization['@id'] },
-        url: `${siteUrl}${path}`,
+        publisher: organizationRef,
+        url: pageUrl(locale, path),
         encoding: { '@type': 'MediaObject', encodingFormat: 'application/pdf', contentUrl: absolute(paper.pdf) }
       },
-      breadcrumbs([
-        { name: 'Research', path: '/research' },
+      breadcrumbs(locale, [
+        { name: t.research, path: '/research' },
         { name: paper.title, path }
       ])
     ]
   };
 }
 
-const servicesJsonLd = serviceCards.map((card) => ({
-  '@context': 'https://schema.org',
-  '@type': 'Service',
-  name: card.title,
-  serviceType: card.tagline,
-  description: card.points.join(' '),
-  provider: { '@id': organization['@id'] },
-  url: `${siteUrl}/services`
-}));
+function servicesJsonLd(locale) {
+  return siteData[locale].serviceCards.map((card) => ({
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    name: card.title,
+    serviceType: card.tagline,
+    description: card.points.join(' '),
+    provider: organizationRef,
+    url: pageUrl(locale, '/services')
+  }));
+}
+
+// hreflang links: one per locale plus x-default pointing at the English page.
+function alternates(path) {
+  return [
+    ...locales.map((locale) => ({ hreflang: htmlLang[locale], href: pageUrl(locale, path) })),
+    { hreflang: 'x-default', href: `${siteUrl}${path}` }
+  ];
+}
 
 // Returns everything the <head> needs for a path; unknown paths get a noindex 404 entry.
 export function getSeo(pathname) {
-  const path = pathname.length > 1 ? pathname.replace(/\/+$/, '') : pathname;
+  const { locale, path } = splitLocale(pathname);
+  const t = strings[locale].seo;
+  const { successStories, researchPapers } = siteData[locale];
+  const base = { lang: htmlLang[locale], ogLocale: ogLocale[locale] };
   let page;
 
-  if (staticPages[path]) {
-    const entry = staticPages[path];
-    const jsonLd = path === '/' ? [organization, website] : [breadcrumbs([{ name: entry.breadcrumb, path }])];
-    if (path === '/services') jsonLd.push(...servicesJsonLd);
+  if (t.pages[path]) {
+    const entry = t.pages[path];
+    const jsonLd =
+      path === '/'
+        ? [organization(locale), website(locale)]
+        : [breadcrumbs(locale, [{ name: entry.breadcrumb, path }])];
+    if (path === '/services') jsonLd.push(...servicesJsonLd(locale));
     page = { ...entry, jsonLd };
   } else {
     const story = successStories.find((item) => caseStudyPath(item) === path);
     const paper = researchPapers.find((item) => paperPath(item) === path);
-    page = story ? caseStudySeo(story) : paper ? paperSeo(paper) : null;
+    page = story ? caseStudySeo(locale, story) : paper ? paperSeo(locale, paper) : null;
   }
 
   if (!page) {
-    return { ...notFound, url: null, image: defaultImage, type: 'website', meta: [], jsonLd: [] };
+    return {
+      ...base,
+      ...t.notFound,
+      robots: 'noindex,follow',
+      url: null,
+      image: defaultImage,
+      type: 'website',
+      meta: [],
+      jsonLd: [],
+      alternates: []
+    };
   }
 
   return {
+    ...base,
     robots: 'index,follow',
     type: 'website',
     meta: [],
     image: defaultImage,
     ...page,
-    url: `${siteUrl}${path}`
+    url: pageUrl(locale, path),
+    alternates: alternates(path)
   };
 }
 
-// Every indexable URL, in sitemap order.
-export const indexablePaths = [
-  ...Object.keys(staticPages),
-  ...successStories.map(caseStudyPath),
-  ...researchPapers.map(paperPath)
+// Every indexable URL, in sitemap order: all English pages, then each other locale.
+const basePaths = [
+  ...Object.keys(stringsEn.seo.pages),
+  ...dataEn.successStories.map(caseStudyPath),
+  ...dataEn.researchPapers.map(paperPath)
 ];
+
+export const indexablePaths = locales.flatMap((locale) => basePaths.map((path) => localizePath(locale, path)));

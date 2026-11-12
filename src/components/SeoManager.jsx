@@ -37,6 +37,15 @@ function upsertCanonical(url) {
 function replacePageTags(seo) {
   document.head.querySelectorAll('[data-seo]').forEach((element) => element.remove());
 
+  seo.alternates.forEach(({ hreflang, href }) => {
+    const element = document.createElement('link');
+    element.setAttribute('rel', 'alternate');
+    element.setAttribute('hreflang', hreflang);
+    element.setAttribute('href', href);
+    element.setAttribute('data-seo', '');
+    document.head.appendChild(element);
+  });
+
   seo.meta.forEach(([name, content]) => {
     const element = document.createElement('meta');
     element.setAttribute('name', name);
@@ -60,12 +69,14 @@ export default function SeoManager() {
   useEffect(() => {
     const seo = getSeo(location.pathname);
 
+    document.documentElement.lang = seo.lang;
     document.title = seo.title;
     upsertMeta('description', seo.description);
     upsertMeta('robots', seo.robots);
 
     upsertMeta('og:type', seo.type, true);
     upsertMeta('og:site_name', siteName, true);
+    upsertMeta('og:locale', seo.ogLocale, true);
     upsertMeta('og:title', seo.title, true);
     upsertMeta('og:description', seo.description, true);
     upsertMeta('og:url', seo.url || window.location.href, true);

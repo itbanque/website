@@ -1,22 +1,25 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
 import SpecSheet from '../components/SpecSheet';
 import { ArrowIcon, CtaPanel, PageHero } from '../components/ui';
-import { storyFilters, successStories } from '../data/siteData';
+import { Link, useLocale } from '../i18n';
 import { caseStudyPath } from '../seo';
 
+const ALL = 'all';
+
 export default function SuccessPage() {
-  const [filter, setFilter] = useState('All');
-  const visible = successStories.filter((story) => filter === 'All' || story.filter === filter);
+  const { locale, t, data } = useLocale();
+  const { storyFilters, successStories } = data;
+  // Filter names are localized, so remember which locale the selection was made in.
+  const [selection, setSelection] = useState({ locale, filter: ALL });
+  const filter = selection.locale === locale ? selection.filter : ALL;
+  const setFilter = (name) => setSelection({ locale, filter: name });
+  const visible = successStories.filter((story) => filter === ALL || story.filter === filter);
 
   return (
     <>
-      <PageHero
-        eyebrow="Case studies"
-        title="Systems in production, not slideware."
-      >
-        <div className="chip-row" role="group" aria-label="Filter by discipline">
-          {['All', ...storyFilters].map((name) => (
+      <PageHero eyebrow={t.success.eyebrow} title={t.success.title}>
+        <div className="chip-row" role="group" aria-label={t.success.filterLabel}>
+          {[ALL, ...storyFilters].map((name) => (
             <button
               key={name}
               type="button"
@@ -24,7 +27,7 @@ export default function SuccessPage() {
               aria-pressed={filter === name}
               onClick={() => setFilter(name)}
             >
-              {name === 'All' ? `All · ${successStories.length}` : name}
+              {name === ALL ? `${t.common.all} · ${successStories.length}` : name}
             </button>
           ))}
         </div>
@@ -51,7 +54,7 @@ export default function SuccessPage() {
                 ))}
               </ul>
               <Link className="text-link" to={caseStudyPath(story)}>
-                Read the case study <ArrowIcon />
+                {t.success.readMore} <ArrowIcon />
               </Link>
             </div>
             <SpecSheet story={story} />
@@ -59,7 +62,7 @@ export default function SuccessPage() {
         ))}
       </section>
 
-      <CtaPanel title="Have a system that needs to reach production?" />
+      <CtaPanel title={t.cta.production} />
     </>
   );
 }

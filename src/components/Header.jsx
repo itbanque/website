@@ -1,10 +1,27 @@
 import { useEffect, useState } from 'react';
-import { Link, NavLink, useLocation } from 'react-router-dom';
-import { navItems } from '../data/siteData';
+import { Link as RouterLink, useLocation } from 'react-router-dom';
+import { Link, NavLink, useLocale } from '../i18n';
+import { localizePath, splitLocale } from '../locale';
 
 export default function Header() {
   const [open, setOpen] = useState(false);
   const location = useLocation();
+  const { t, data } = useLocale();
+  const { navItems } = data;
+  const { switchTo } = t.header;
+
+  // Same page in the other language.
+  const languageSwitch = (
+    <RouterLink
+      className="lang-switch"
+      to={localizePath(switchTo.locale, splitLocale(location.pathname).path) + location.hash}
+      lang={switchTo.lang}
+      hrefLang={switchTo.lang}
+      aria-label={switchTo.aria}
+    >
+      {switchTo.label}
+    </RouterLink>
+  );
 
   useEffect(() => {
     setOpen(false);
@@ -13,25 +30,26 @@ export default function Header() {
   return (
     <header className="site-header">
       <div className="container header-row">
-        <Link to="/" className="brand" aria-label="itbanque home">
+        <Link to="/" className="brand" aria-label={t.header.homeLabel}>
           <img src="/brand/logo-lockup-ink.webp" alt="itbanque" width="151" height="30" />
         </Link>
 
-        <nav className="desktop-nav" aria-label="Main navigation">
+        <nav className="desktop-nav" aria-label={t.header.mainNav}>
           {navItems.map((item) => (
             <NavLink key={item.to} to={item.to} className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}>
               {item.label}
             </NavLink>
           ))}
+          {languageSwitch}
           <Link className="btn btn-primary btn-sm" to="/contact">
-            Start a project
+            {t.common.startProject}
           </Link>
         </nav>
 
         <button
           className="menu-toggle"
           type="button"
-          aria-label={open ? 'Close navigation menu' : 'Open navigation menu'}
+          aria-label={open ? t.header.closeMenu : t.header.openMenu}
           aria-expanded={open}
           aria-controls="mobile-nav"
           onClick={() => setOpen((state) => !state)}
@@ -42,14 +60,15 @@ export default function Header() {
         </button>
       </div>
 
-      <nav id="mobile-nav" className={`mobile-nav ${open ? 'open' : ''}`} aria-label="Mobile navigation">
+      <nav id="mobile-nav" className={`mobile-nav ${open ? 'open' : ''}`} aria-label={t.header.mobileNav}>
         {navItems.map((item) => (
           <NavLink key={item.to} to={item.to} className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}>
             {item.label}
           </NavLink>
         ))}
+        {languageSwitch}
         <Link className="btn btn-primary" to="/contact">
-          Start a project
+          {t.common.startProject}
         </Link>
       </nav>
     </header>
